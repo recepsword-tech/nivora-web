@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/sections/HeroSection";
+
+export const metadata: Metadata = {
+  title: "Nivora | Ankara Anahtar Teslim Tadilat & Dekorasyon",
+  description:
+    "Nivora, Ankara'da ev, banyo, mutfak ve ticari alanlar için temiz çalışma, ince işçilik ve güvenilir süreç odaklı tadilat ve dekorasyon hizmeti sunar.",
+};
 import ServicesSection from "@/components/sections/ServicesSection";
 import WhyNivoraSection from "@/components/sections/WhyNivoraSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";

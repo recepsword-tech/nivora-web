@@ -1,143 +1,465 @@
 "use client";
 
 import { useState } from "react";
-import PageHero from "@/components/ui/PageHero";
+import Link from "next/link";
+import AnimatedSection from "@/components/motion/AnimatedSection";
+import { contact, waUrl, waMessages } from "@/data/contact";
 
-const WHATSAPP_URL = "https://wa.me/905321234567";
-const PHONE = "0532 123 45 67";
-const EMAIL = "info@nivora.com.tr";
+const WHATSAPP_NUMBER = contact.whatsappNumber;
+const WHATSAPP_URL = waUrl("photo");
+const WHATSAPP_QUICK_MESSAGE = waMessages.photo;
+const PHONE = contact.phoneDisplay;
+const EMAIL = contact.email;
+
+const hizmetSecenekleri = [
+  "Banyo Yenileme",
+  "Mutfak Yenileme",
+  "Anahtar Teslim Tadilat",
+  "Boya & Alçı / İnce İşçilik",
+  "Mağaza & Ticari Alan",
+  "Diğer / Henüz Karar Vermedim",
+];
 
 const bolgeler = [
-  "Çankaya", "Keçiören", "Mamak", "Yenimahalle",
-  "Etimesgut", "Sincan", "Altındağ", "Gölbaşı",
-  "Pursaklar", "Çubuk",
+  "Çankaya",
+  "İncek",
+  "Ümitköy",
+  "Gölbaşı",
+  "Etimesgut",
+  "Eryaman",
+  "Batıkent",
+  "Yenimahalle",
+  "Keçiören",
+  "Mamak",
+  "Sincan",
+  "Ankara Geneli",
+];
+
+const iletisimKartlari = [
+  {
+    icon: <WhatsAppIcon />,
+    baslik: "WhatsApp",
+    deger: PHONE,
+    aciklama: "Fotoğraf gönderin, hızlı ön değerlendirme alın",
+    href: `${WHATSAPP_URL}?text=${encodeURIComponent(WHATSAPP_QUICK_MESSAGE)}`,
+    hrefLabel: "WhatsApp'ta Yaz",
+    external: true,
+  },
+  {
+    icon: <PhoneIcon />,
+    baslik: "Telefon",
+    deger: PHONE,
+    aciklama: "Hafta içi 09:00–19:00 arasında arayabilirsiniz",
+    href: contact.phoneHref,
+    hrefLabel: "Ara",
+    external: false,
+  },
+  {
+    icon: <MailIcon />,
+    baslik: "E-Posta",
+    deger: EMAIL,
+    aciklama: "Detaylı sorularınız için e-posta tercih edebilirsiniz",
+    href: contact.emailHref,
+    hrefLabel: "E-Posta Gönder",
+    external: false,
+  },
+  {
+    icon: <MapPinIcon />,
+    baslik: "Hizmet Bölgeleri",
+    deger: "Ankara Geneli",
+    aciklama: "Çankaya, Gölbaşı, Etimesgut, Eryaman ve çevre ilçeler",
+    href: null,
+    hrefLabel: null,
+    external: false,
+  },
 ];
 
 export default function IletisimClient() {
-  const [form, setForm] = useState({ name: "", phone: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    ilce: "",
+    hizmet: "",
+    aciklama: "",
+  });
   const [sent, setSent] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const msg = encodeURIComponent(
-      `Merhaba, ben ${form.name}.\n\nTelefon: ${form.phone}\n\nMesajım: ${form.message}`
+    const waMessage = `Merhaba, Nivora web sitesi üzerinden ulaşıyorum. Tadilat/dekorasyon hizmeti hakkında bilgi almak istiyorum. Fotoğraf paylaşarak ön değerlendirme alabilir miyim?\n\nAd Soyad: ${form.name}\nTelefon: ${form.phone}\nİlçe: ${form.ilce}\nHizmet Türü: ${form.hizmet}\nAçıklama: ${form.aciklama}`;
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`,
+      "_blank"
     );
-    window.open(`https://wa.me/905321234567?text=${msg}`, "_blank");
     setSent(true);
   };
 
   return (
     <>
-      <PageHero
-        label="İletişim"
-        title="Bize Ulaşın"
-        subtitle="Ücretsiz keşif randevusu almak veya projeniz hakkında bilgi almak için iletişime geçin."
-      />
-
-      <section className="bg-krem py-20 lg:py-28">
+      {/* ── 1. Hero ── */}
+      <section className="bg-antrasit pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-            {/* Contact Info */}
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-8 font-sans">
-                İletişim Bilgileri
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.3em] text-gold mb-6 font-sans">
+              İletişim & Keşif
+            </p>
+            <h1 className="font-heading text-3xl lg:text-5xl font-bold text-white leading-tight mb-6">
+              Projenizi Birlikte
+              <br />
+              Değerlendirelim
+            </h1>
+            <p className="text-sm text-white/60 font-sans leading-relaxed mb-10 max-w-lg">
+              WhatsApp üzerinden fotoğraf paylaşarak başlayabilirsiniz. Keşif
+              ziyaretinde alanı birlikte değerlendiriyor, yazılı ve şeffaf bir
+              teklif sunuyoruz.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                "Hızlı Ön Görüşme",
+                "WhatsApp ile Fotoğraf Gönderimi",
+                "Keşif Planlama",
+                "Şeffaf Teklif Süreci",
+              ].map((badge) => (
+                <span
+                  key={badge}
+                  className="px-4 py-2 border border-white/20 text-white/70 text-xs font-sans tracking-wide"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2. İletişim Kartları ── */}
+      <AnimatedSection>
+        <section className="bg-krem py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="mb-12">
+              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                Bize Ulaşın
               </p>
+              <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit">
+                Hangi Kanalı Tercih Ederseniz
+              </h2>
+              <div className="w-10 h-px bg-gold mt-5" />
+            </div>
 
-              <div className="space-y-8">
-                {/* WhatsApp */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-white border border-bej flex items-center justify-center">
-                    <WhatsAppIcon />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {iletisimKartlari.map((kart) => (
+                <div
+                  key={kart.baslik}
+                  className="bg-white p-6 flex flex-col gap-4"
+                >
+                  <div className="w-10 h-10 bg-krem flex items-center justify-center flex-shrink-0">
+                    {kart.icon}
                   </div>
-                  <div>
-                    <p className="font-heading text-xs font-bold text-antrasit mb-1 tracking-wide">
-                      WhatsApp
+                  <div className="flex-1">
+                    <p className="font-heading text-xs font-bold text-antrasit tracking-wide mb-1">
+                      {kart.baslik}
                     </p>
+                    <p className="text-sm text-antrasit font-sans font-medium mb-2">
+                      {kart.deger}
+                    </p>
+                    <p className="text-xs text-taupe font-sans leading-relaxed">
+                      {kart.aciklama}
+                    </p>
+                  </div>
+                  {kart.href && kart.hrefLabel && (
                     <a
-                      href={WHATSAPP_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-taupe font-sans hover:text-gold transition-colors"
+                      href={kart.href}
+                      target={kart.external ? "_blank" : undefined}
+                      rel={kart.external ? "noopener noreferrer" : undefined}
+                      className="text-xs font-heading font-bold text-gold hover:text-antrasit transition-colors tracking-wide"
                     >
-                      {PHONE}
+                      {kart.hrefLabel} →
                     </a>
-                    <p className="text-xs text-taupe/70 font-sans mt-1">
-                      En hızlı yanıt için WhatsApp tercih edin
-                    </p>
-                  </div>
+                  )}
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
 
-                {/* Telefon */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-white border border-bej flex items-center justify-center">
-                    <PhoneIcon />
-                  </div>
-                  <div>
-                    <p className="font-heading text-xs font-bold text-antrasit mb-1 tracking-wide">
-                      Telefon
-                    </p>
-                    <a
-                      href={`tel:+90${PHONE.replace(/\s/g, "")}`}
-                      className="text-sm text-taupe font-sans hover:text-gold transition-colors"
-                    >
-                      {PHONE}
-                    </a>
-                  </div>
-                </div>
+      {/* ── 3. Keşif Formu ── */}
+      <AnimatedSection>
+        <section className="bg-white py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+              {/* Sol: Açıklama */}
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                  Keşif Talebi
+                </p>
+                <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit leading-tight mb-6">
+                  Formu Doldurun,
+                  <br />
+                  WhatsApp'tan Devam Edelim
+                </h2>
+                <div className="w-10 h-px bg-gold mb-8" />
+                <p className="text-sm text-taupe font-sans leading-relaxed mb-8">
+                  Formu doldurduğunuzda bilgileriniz otomatik olarak WhatsApp
+                  mesajına dönüştürülür. Onayladığınızda mesajınız iletilir —
+                  herhangi bir kişisel veri sunucuya gönderilmez.
+                </p>
 
-                {/* E-posta */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-white border border-bej flex items-center justify-center">
-                    <MailIcon />
-                  </div>
-                  <div>
-                    <p className="font-heading text-xs font-bold text-antrasit mb-1 tracking-wide">
-                      E-Posta
-                    </p>
-                    <a
-                      href={`mailto:${EMAIL}`}
-                      className="text-sm text-taupe font-sans hover:text-gold transition-colors"
-                    >
-                      {EMAIL}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Çalışma Saatleri */}
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-10 h-10 bg-white border border-bej flex items-center justify-center">
-                    <ClockIcon />
-                  </div>
-                  <div>
-                    <p className="font-heading text-xs font-bold text-antrasit mb-1 tracking-wide">
-                      Çalışma Saatleri
-                    </p>
-                    <p className="text-sm text-taupe font-sans">
-                      Hafta içi 08:00 – 18:00
-                    </p>
-                    <p className="text-xs text-taupe/70 font-sans mt-1">
-                      Cumartesi randevuyla
-                    </p>
-                  </div>
+                <div className="space-y-5">
+                  {[
+                    {
+                      num: "01",
+                      baslik: "Formu doldurun",
+                      desc: "Ad, telefon, ilçe ve hizmet türünü belirtin",
+                    },
+                    {
+                      num: "02",
+                      baslik: "WhatsApp açılır",
+                      desc: "Mesajınız hazır hâlde karşınıza gelir, onaylayın",
+                    },
+                    {
+                      num: "03",
+                      baslik: "Fotoğraf ekleyin",
+                      desc: "Alanın fotoğraflarını aynı sohbette paylaşabilirsiniz",
+                    },
+                    {
+                      num: "04",
+                      baslik: "Keşif planlanır",
+                      desc: "Size uygun bir zaman belirlenir, keşif ücretsizdir",
+                    },
+                  ].map((adim) => (
+                    <div key={adim.num} className="flex gap-4 items-start">
+                      <span className="font-heading text-xs font-bold text-gold flex-shrink-0 mt-0.5">
+                        {adim.num}
+                      </span>
+                      <div>
+                        <p className="font-heading text-sm font-bold text-antrasit mb-0.5">
+                          {adim.baslik}
+                        </p>
+                        <p className="text-xs text-taupe font-sans leading-relaxed">
+                          {adim.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Hizmet Bölgeleri */}
-              <div className="mt-12">
-                <p className="font-heading text-xs font-bold text-antrasit mb-4 tracking-wide">
-                  Hizmet Bölgeleri
+              {/* Sağ: Form */}
+              <div className="bg-krem p-8 lg:p-10">
+                {sent ? (
+                  <div className="py-12 text-center">
+                    <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-5">
+                      <svg
+                        width="22"
+                        height="22"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#B08D57"
+                        strokeWidth="2"
+                      >
+                        <polyline points="20,6 9,17 4,12" />
+                      </svg>
+                    </div>
+                    <p className="font-heading text-base font-bold text-antrasit mb-3">
+                      WhatsApp açıldı
+                    </p>
+                    <p className="text-sm text-taupe font-sans leading-relaxed mb-6">
+                      Mesajınız hazırlandı. Göndermek için WhatsApp&apos;ta
+                      onaylayın. Fotoğraflarınızı aynı sohbette
+                      paylaşabilirsiniz.
+                    </p>
+                    <button
+                      onClick={() => setSent(false)}
+                      className="text-xs font-heading font-bold text-gold hover:text-antrasit transition-colors tracking-wide"
+                    >
+                      Yeni Mesaj Gönder
+                    </button>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                      <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
+                        Ad Soyad <span className="text-gold">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        value={form.name}
+                        onChange={handleChange}
+                        placeholder="Adınız Soyadınız"
+                        className="w-full px-4 py-3 border border-bej bg-white text-sm text-antrasit font-sans placeholder:text-taupe/40 focus:outline-none focus:border-gold transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
+                        Telefon <span className="text-gold">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        value={form.phone}
+                        onChange={handleChange}
+                        placeholder="05xx xxx xx xx"
+                        className="w-full px-4 py-3 border border-bej bg-white text-sm text-antrasit font-sans placeholder:text-taupe/40 focus:outline-none focus:border-gold transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
+                        İlçe / Semt
+                      </label>
+                      <input
+                        type="text"
+                        name="ilce"
+                        value={form.ilce}
+                        onChange={handleChange}
+                        placeholder="Örn. Çankaya, Gölbaşı, Etimesgut…"
+                        className="w-full px-4 py-3 border border-bej bg-white text-sm text-antrasit font-sans placeholder:text-taupe/40 focus:outline-none focus:border-gold transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
+                        Hizmet Türü <span className="text-gold">*</span>
+                      </label>
+                      <select
+                        name="hizmet"
+                        required
+                        value={form.hizmet}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 border border-bej bg-white text-sm text-antrasit font-sans focus:outline-none focus:border-gold transition-colors appearance-none"
+                      >
+                        <option value="" disabled>
+                          Hizmet türünü seçin
+                        </option>
+                        {hizmetSecenekleri.map((h) => (
+                          <option key={h} value={h}>
+                            {h}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
+                        Kısa Açıklama
+                      </label>
+                      <textarea
+                        name="aciklama"
+                        rows={3}
+                        value={form.aciklama}
+                        onChange={handleChange}
+                        placeholder="Proje hakkında kısa bilgi verin…"
+                        className="w-full px-4 py-3 border border-bej bg-white text-sm text-antrasit font-sans placeholder:text-taupe/40 focus:outline-none focus:border-gold transition-colors resize-none"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full flex items-center justify-center gap-2 py-4 bg-gold text-white font-heading text-sm tracking-wide hover:bg-gold/90 transition-colors duration-200"
+                    >
+                      <WhatsAppIcon />
+                      WhatsApp&apos;tan Gönder
+                    </button>
+
+                    <p className="text-xs text-taupe/60 font-sans text-center leading-relaxed">
+                      Verileriniz sunucuya gönderilmez. Mesaj doğrudan
+                      WhatsApp&apos;a iletilir.
+                    </p>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* ── 4. WhatsApp Hızlı Mesaj ── */}
+      <AnimatedSection>
+        <section className="bg-antrasit py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                  Hızlı Başlangıç
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <h2 className="font-heading text-2xl lg:text-3xl font-bold text-white leading-tight mb-6">
+                  Form doldurmak istemiyorsanız,
+                  <br />
+                  doğrudan yazın
+                </h2>
+                <p className="text-sm text-white/60 font-sans leading-relaxed mb-8">
+                  WhatsApp&apos;ta aşağıdaki mesajı göndererek başlayabilirsiniz.
+                  Fotoğraf ekleyin, alanı birlikte değerlendirelim.
+                </p>
+                <a
+                  href={`${WHATSAPP_URL}?text=${encodeURIComponent(WHATSAPP_QUICK_MESSAGE)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-white font-heading text-sm tracking-wide hover:bg-gold/90 transition-colors duration-200"
+                >
+                  <WhatsAppIcon />
+                  WhatsApp&apos;ta Yaz
+                </a>
+              </div>
+
+              <div className="bg-white/5 border border-white/10 p-6 lg:p-8">
+                <p className="text-xs uppercase tracking-[0.2em] text-gold mb-4 font-sans">
+                  Hazır Mesaj
+                </p>
+                <p className="text-sm text-white/80 font-sans leading-relaxed italic">
+                  &ldquo;{WHATSAPP_QUICK_MESSAGE}&rdquo;
+                </p>
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <p className="text-xs text-white/40 font-sans">
+                    Bu mesajı kopyalayabilir veya yukarıdaki butona tıklayarak
+                    otomatik gönderebilirsiniz.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* ── 5. Hizmet Bölgeleri ── */}
+      <AnimatedSection>
+        <section className="bg-krem py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="flex flex-col lg:flex-row lg:items-start lg:gap-20">
+              <div className="lg:w-64 flex-shrink-0 mb-10 lg:mb-0">
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                  Hizmet Alanı
+                </p>
+                <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit leading-tight">
+                  Ankara Genelinde
+                  Hizmet Veriyoruz
+                </h2>
+                <div className="w-10 h-px bg-gold mt-5 mb-6" />
+                <p className="text-xs text-taupe font-sans leading-relaxed">
+                  Aşağıda listelenen ilçe ve semtlerde keşif gerçekleştiriyoruz.
+                  Bölgenizi listede göremiyorsanız WhatsApp&apos;tan sorun.
+                </p>
+              </div>
+
+              <div className="flex-1">
+                <div className="flex flex-wrap gap-3">
                   {bolgeler.map((b) => (
                     <span
                       key={b}
-                      className="px-3 py-1 bg-white border border-bej text-xs text-taupe font-sans"
+                      className="px-4 py-2 bg-white border border-bej text-sm text-antrasit font-sans tracking-wide"
                     >
                       {b}
                     </span>
@@ -145,108 +467,192 @@ export default function IletisimClient() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+      </AnimatedSection>
 
-            {/* Contact Form */}
-            <div className="bg-white p-8 lg:p-10">
-              <h2 className="font-heading text-lg font-bold text-antrasit mb-2">
-                Mesaj Gönderin
-              </h2>
-              <p className="text-xs text-taupe font-sans mb-8">
-                Formu doldurun, WhatsApp üzerinden devam edelim.
-              </p>
-
-              {sent ? (
-                <div className="py-8 text-center">
-                  <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center mx-auto mb-4">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="#B08D57"
-                      strokeWidth="2"
-                    >
-                      <polyline points="20,6 9,17 4,12" />
-                    </svg>
+      {/* ── 6. Çalışma Saatleri & Konum ── */}
+      <AnimatedSection>
+        <section className="bg-white py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="grid lg:grid-cols-2 gap-8">
+              {/* Çalışma Saatleri */}
+              <div className="bg-krem p-8 lg:p-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-white flex items-center justify-center">
+                    <ClockIcon />
                   </div>
-                  <p className="font-heading text-sm font-bold text-antrasit mb-2">
-                    WhatsApp açıldı
-                  </p>
-                  <p className="text-xs text-taupe font-sans">
-                    Mesajınız hazırlandı. Göndermek için WhatsApp&apos;ta onaylayın.
+                  <p className="font-heading text-xs font-bold text-antrasit tracking-wide">
+                    Çalışma Saatleri
                   </p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div>
-                    <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
-                      Adınız Soyadınız
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={form.name}
-                      onChange={handleChange}
-                      placeholder="Adınız Soyadınız"
-                      className="w-full px-4 py-3 border border-bej bg-krem text-sm text-antrasit font-sans placeholder:text-taupe/50 focus:outline-none focus:border-gold transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
-                      Telefon
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={form.phone}
-                      onChange={handleChange}
-                      placeholder="05xx xxx xx xx"
-                      className="w-full px-4 py-3 border border-bej bg-krem text-sm text-antrasit font-sans placeholder:text-taupe/50 focus:outline-none focus:border-gold transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-heading font-bold text-antrasit mb-2 tracking-wide">
-                      Mesajınız
-                    </label>
-                    <textarea
-                      name="message"
-                      required
-                      rows={4}
-                      value={form.message}
-                      onChange={handleChange}
-                      placeholder="Proje hakkında kısa bilgi verin..."
-                      className="w-full px-4 py-3 border border-bej bg-krem text-sm text-antrasit font-sans placeholder:text-taupe/50 focus:outline-none focus:border-gold transition-colors resize-none"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full flex items-center justify-center gap-2 py-4 bg-gold text-white font-heading text-sm tracking-wide hover:bg-gold/90 transition-colors duration-200"
-                  >
-                    <WhatsAppIcon />
-                    WhatsApp&apos;tan Gönder
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Map Placeholder */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 pb-0">
-          <div className="h-64 bg-bej/30 flex items-center justify-center border border-bej">
-            <div className="text-center">
-              <p className="text-taupe font-sans text-xs mb-1">Ankara, Türkiye</p>
-              <p className="text-taupe/60 font-sans text-xs">
-                Harita için keşif randevusunda konum paylaşılır
-              </p>
+                <div className="space-y-4">
+                  {[
+                    { gun: "Pazartesi – Cuma", saat: "09:00 – 19:00" },
+                    { gun: "Cumartesi", saat: "09:00 – 17:00" },
+                    { gun: "Pazar", saat: "Kapalı" },
+                  ].map((row) => (
+                    <div
+                      key={row.gun}
+                      className="flex justify-between items-center py-3 border-b border-bej last:border-0"
+                    >
+                      <span className="text-sm text-taupe font-sans">
+                        {row.gun}
+                      </span>
+                      <span
+                        className={`font-heading text-sm font-bold ${row.saat === "Kapalı" ? "text-taupe/50" : "text-antrasit"}`}
+                      >
+                        {row.saat}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-bej">
+                  <p className="text-xs text-taupe font-sans leading-relaxed">
+                    Mesai saatleri dışında WhatsApp&apos;tan mesaj
+                    bırakabilirsiniz. İlk fırsatta dönüş yapıyoruz.
+                  </p>
+                </div>
+              </div>
+
+              {/* Konum Placeholder */}
+              <div className="bg-krem p-8 lg:p-10 flex flex-col">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-white flex items-center justify-center">
+                    <MapPinIcon />
+                  </div>
+                  <p className="font-heading text-xs font-bold text-antrasit tracking-wide">
+                    Konum
+                  </p>
+                </div>
+
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <p className="font-heading text-lg font-bold text-antrasit mb-2">
+                      Ankara, Türkiye
+                    </p>
+                    <p className="text-sm text-taupe font-sans leading-relaxed mb-6">
+                      Merkezi ofisimiz Çankaya&apos;dadır. Keşif ziyaretleri
+                      için alanınıza geliyoruz — konum paylaşımı keşif
+                      randevusunda yapılır.
+                    </p>
+                  </div>
+
+                  <div className="h-40 bg-white border border-bej flex items-center justify-center">
+                    <div className="text-center">
+                      <MapPinIcon />
+                      <p className="text-xs text-taupe font-sans mt-3">
+                        Ankara, Türkiye
+                      </p>
+                      <p className="text-xs text-taupe/50 font-sans mt-1">
+                        Keşif randevusunda konum paylaşılır
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </AnimatedSection>
+
+      {/* ── 7. Süreç Özeti ── */}
+      <AnimatedSection>
+        <section className="bg-krem py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="text-center mb-14">
+              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                Nasıl İlerliyor?
+              </p>
+              <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit">
+                İletişimden Teslimata
+              </h2>
+              <div className="w-10 h-px bg-gold mx-auto mt-5" />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                {
+                  num: "01",
+                  baslik: "İletişim",
+                  desc: "WhatsApp veya form üzerinden ulaşın, fotoğraf paylaşın",
+                },
+                {
+                  num: "02",
+                  baslik: "Keşif Ziyareti",
+                  desc: "Alanı yerinde değerlendiriyor, ölçüm alıyoruz. Keşif ücretsizdir.",
+                },
+                {
+                  num: "03",
+                  baslik: "Yazılı Teklif",
+                  desc: "İşçilik ve malzeme ayrı ayrı belirtilen şeffaf teklif sunuyoruz",
+                },
+                {
+                  num: "04",
+                  baslik: "Uygulama & Teslim",
+                  desc: "Onaylanan planda çalışıyor, teslimatta son kontrolü birlikte yapıyoruz",
+                },
+              ].map((adim) => (
+                <div key={adim.num} className="bg-white p-6">
+                  <span className="font-heading text-2xl font-bold text-gold/30 mb-4 block">
+                    {adim.num}
+                  </span>
+                  <p className="font-heading text-sm font-bold text-antrasit mb-2">
+                    {adim.baslik}
+                  </p>
+                  <p className="text-xs text-taupe font-sans leading-relaxed">
+                    {adim.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* ── 8. Final CTA ── */}
+      <AnimatedSection>
+        <section className="bg-antrasit py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                  Başlamak İçin
+                </p>
+                <h2 className="font-heading text-2xl lg:text-4xl font-bold text-white leading-tight mb-6">
+                  İlk adımı atın —
+                  <br />
+                  gerisini birlikte planlayalım.
+                </h2>
+                <p className="text-sm text-white/60 font-sans leading-relaxed">
+                  Keşif ücretsiz, teklif yazılı ve şeffaf. Onaylamadan
+                  başlamıyoruz.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href={`${WHATSAPP_URL}?text=${encodeURIComponent(WHATSAPP_QUICK_MESSAGE)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gold text-white font-heading text-sm tracking-wide hover:bg-gold/90 transition-colors duration-200"
+                >
+                  <WhatsAppIcon />
+                  WhatsApp&apos;ta Yaz
+                </a>
+                <Link
+                  href="/hizmetler"
+                  className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white/70 font-heading text-sm tracking-wide hover:border-white/50 hover:text-white transition-colors duration-200"
+                >
+                  Hizmetleri İncele
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
     </>
   );
 }
@@ -261,7 +667,14 @@ function WhatsAppIcon() {
 
 function PhoneIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B08D57" strokeWidth="1.8">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#B08D57"
+      strokeWidth="1.8"
+    >
       <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
     </svg>
   );
@@ -269,16 +682,46 @@ function PhoneIcon() {
 
 function MailIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B08D57" strokeWidth="1.8">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#B08D57"
+      strokeWidth="1.8"
+    >
       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
       <polyline points="22,6 12,13 2,6" />
     </svg>
   );
 }
 
+function MapPinIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#B08D57"
+      strokeWidth="1.8"
+    >
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+}
+
 function ClockIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#B08D57" strokeWidth="1.8">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#B08D57"
+      strokeWidth="1.8"
+    >
       <circle cx="12" cy="12" r="10" />
       <polyline points="12,6 12,12 16,14" />
     </svg>

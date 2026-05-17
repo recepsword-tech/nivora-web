@@ -3,12 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Hizmetler | Nivora — Ankara Tadilat & Dekorasyon",
+  title: "Tadilat ve Dekorasyon Hizmetleri | Nivora Ankara",
   description:
-    "Ankara'da anahtar teslim ev tadilatı, banyo yenileme, mutfak yenileme, boya & alçı ve ticari alan uygulamaları. Yazılı teklif, kaliteli işçilik, teslim sonrası destek.",
+    "Nivora; Ankara'da anahtar teslim ev tadilatı, banyo yenileme, mutfak tadilatı, boya, alçı ve ticari alan dekorasyonu hizmetleri sunar.",
 };
 
-const WHATSAPP_URL = "https://wa.me/905321234567";
+import { waUrl } from "@/data/contact";
+const WHATSAPP_URL = waUrl("general");
 
 const badges = [
   "Temiz Çalışma",

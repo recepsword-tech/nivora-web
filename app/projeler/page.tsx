@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import ProjelerClient from "./ProjelerClient";
 
 export const metadata: Metadata = {
-  title: "Dönüşüm Örnekleri | Nivora — Ankara Tadilat",
+  title: "Seçili Dönüşüm Örnekleri | Nivora",
   description:
-    "Nivora tarafından hazırlanan konsept dönüşüm örnekleri. Komple tadilat, banyo yenileme, mutfak yenileme ve ticari alan uygulamaları.",
+    "Nivora'nın Ankara'da tadilat ve dekorasyon hizmetlerindeki banyo, mutfak, komple ev ve ticari alan dönüşüm yaklaşımını gösteren seçili konsept örnekler.",
 };
 
 export default function ProjelerPage() {

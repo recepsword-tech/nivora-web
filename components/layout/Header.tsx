@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { waUrlRaw } from "@/data/contact";
 
 const navLinks = [
   { href: "/", label: "Ana Sayfa" },
@@ -14,7 +15,7 @@ const navLinks = [
   { href: "/iletisim", label: "İletişim" },
 ];
 
-const WHATSAPP_URL = "https://wa.me/905321234567";
+const WHATSAPP_URL = waUrlRaw();
 
 export default function Header() {
   const [open, setOpen] = useState(false);

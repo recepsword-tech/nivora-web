@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import SSSClient from "./SSSClient";
 
 export const metadata: Metadata = {
-  title: "Sık Sorulan Sorular | Nivora — Ankara Tadilat",
+  title: "Sıkça Sorulan Sorular | Nivora",
   description:
-    "Tadilat süreçleri, malzeme seçimi, fiyatlandırma, garanti ve çalışma bölgeleri hakkında sık sorulan sorular ve yanıtları.",
+    "Nivora tadilat ve dekorasyon hizmetleri hakkında fiyat, keşif, malzeme, süre, işçilik ve teslimatla ilgili sıkça sorulan soruların cevapları.",
 };
 
 export default function SSSPage() {

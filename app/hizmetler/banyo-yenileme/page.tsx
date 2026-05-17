@@ -6,10 +6,11 @@ import BanyoFAQ from "./BanyoFAQ";
 export const metadata: Metadata = {
   title: "Ankara Banyo Tadilatı ve Yenileme | Nivora",
   description:
-    "Nivora, Ankara'da banyo yenileme ve tadilat hizmetlerinde temiz çalışma, ince işçilik ve şeffaf teklif yaklaşımıyla hizmet verir.",
+    "Nivora, Ankara'da banyo yenileme ve banyo tadilatı hizmetlerinde temiz çalışma, doğru malzeme, ince işçilik ve şeffaf teklif yaklaşımı sunar.",
 };
 
-const WHATSAPP_URL = "https://wa.me/905321234567";
+import { waUrl } from "@/data/contact";
+const WHATSAPP_URL = waUrl("banyo");
 
 const badges = [
   "Temiz Çalışma",

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import IletisimClient from "./IletisimClient";
 
 export const metadata: Metadata = {
-  title: "İletişim | Nivora — Ankara Tadilat & Dekorasyon",
+  title: "İletişim ve Keşif Talebi | Nivora",
   description:
-    "Nivora ile iletişime geçin. Ankara'da ücretsiz keşif randevusu alın. WhatsApp, telefon veya e-posta ile ulaşabilirsiniz.",
+    "Nivora ile Ankara'da tadilat ve dekorasyon hizmetleri için iletişime geçin. WhatsApp üzerinden fotoğraf göndererek keşif ve ön değerlendirme talep edin.",
 };
 
 export default function IletisimPage() {

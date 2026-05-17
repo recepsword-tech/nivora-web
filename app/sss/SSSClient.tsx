@@ -1,152 +1,351 @@
 "use client";
 
 import { useState } from "react";
-import PageHero from "@/components/ui/PageHero";
+import Link from "next/link";
+import AnimatedSection from "@/components/motion/AnimatedSection";
+import { waUrl } from "@/data/contact";
 
-const WHATSAPP_URL = "https://wa.me/905321234567";
+const WHATSAPP_URL = waUrl("general");
 
-const faqs = [
+type Kategori =
+  | "Tümü"
+  | "Fiyat & Teklif"
+  | "Keşif & Süreç"
+  | "Malzeme & İşçilik"
+  | "Banyo & Mutfak"
+  | "Teslimat & Destek";
+
+const kategoriler: Kategori[] = [
+  "Tümü",
+  "Fiyat & Teklif",
+  "Keşif & Süreç",
+  "Malzeme & İşçilik",
+  "Banyo & Mutfak",
+  "Teslimat & Destek",
+];
+
+type FAQ = { kategori: Kategori; soru: string; cevap: string };
+
+const faqs: FAQ[] = [
   {
-    question: "Keşif ücretsiz mi?",
-    answer:
-      "Evet, ilk keşif ziyareti tamamen ücretsizdir. Mekânı yerinde inceleyip ölçüm yapıyor, size detaylı ve şeffaf bir teklif sunuyoruz.",
+    kategori: "Fiyat & Teklif",
+    soru: "Tadilat fiyatı nasıl belirlenir?",
+    cevap:
+      "Fiyat; alanın mevcut durumu, yapılacak iş kapsamı, kullanılacak malzeme seviyesi ve teslim süresine göre belirlenir. Keşif sonrası kapsamı daha net konuşur, yazılı teklif sunarız.",
   },
   {
-    question: "Tadilat süreci ne kadar sürer?",
-    answer:
-      "Süre projenin kapsamına göre değişir. Banyo yenileme için ortalama 7–15 gün, mutfak yenileme için 10–20 gün, 2+1 bir dairenin komple tadilatı için 30–45 gün planlamaktayız. Başlamadan önce size net bir zaman çizelgesi sunulur.",
+    kategori: "Fiyat & Teklif",
+    soru: "Telefonla net fiyat verebilir misiniz?",
+    cevap:
+      "Fotoğraf ve ön bilgiyle yaklaşık yönlendirme yapılabilir; fakat net fiyat için işin yerinde görülmesi ve kapsamın belirlenmesi gerekir.",
   },
   {
-    question: "Malzemeleri siz mi temin ediyorsunuz?",
-    answer:
-      "İsterseniz malzeme tedarikini biz üstleniyoruz, isterseniz siz seçip bize teslim edebilirsiniz. Her iki seçenek için de net fiyatlandırma yapıyoruz. Malzeme tercihlerinizi keşif sırasında konuşabiliriz.",
+    kategori: "Fiyat & Teklif",
+    soru: "En uygun fiyatlı çözümü sunuyor musunuz?",
+    cevap:
+      "Nivora'nın amacı en ucuz işi yapmak değil, doğru işi doğru kapsamla teslim etmektir. Her bütçeye aynı sonucu vaat etmeyiz; her bütçeye en doğru çözümü şeffaf şekilde sunarız.",
   },
   {
-    question: "Sözleşme yapılıyor mu?",
-    answer:
-      "Evet, tüm projelerimizde kapsamı, süreyi ve ödeme planını net biçimde belirten yazılı bir sözleşme imzalıyoruz. Sözleşme dışı talep ya da sürpriz maliyet olmaz.",
+    kategori: "Keşif & Süreç",
+    soru: "Keşif süreci nasıl ilerliyor?",
+    cevap:
+      "Önce ihtiyacınızı dinleriz, mümkünse fotoğraf isteriz. Ardından yerinde keşif planlanır, yapılacak iş kapsamı ve malzeme seviyesi netleştirilir.",
   },
   {
-    question: "Tadilat sonrası garanti var mı?",
-    answer:
-      "Tamamlanan işçilik için 1 yıl garanti veriyoruz. Herhangi bir işçilik kaynaklı sorun oluşması durumunda en kısa sürede müdahale edilir.",
+    kategori: "Keşif & Süreç",
+    soru: "Keşif ücretli mi?",
+    cevap:
+      "Keşif süreci işin kapsamına, bölgeye ve talebe göre planlanır. Ön görüşmede bu konuda net bilgi verilir.",
   },
   {
-    question: "Çalışma saatleri nelerdir?",
-    answer:
-      "Hafta içi 08:00–18:00 saatleri arasında çalışıyoruz. Proje kapsamına ve aciliyete göre cumartesi çalışma planlanabilir.",
+    kategori: "Keşif & Süreç",
+    soru: "Tadilat süreci nasıl takip ediliyor?",
+    cevap:
+      "İşe başlamadan önce yapılacak işler ve uygulama sırası netleştirilir. Süreç boyunca müşteriyle iletişimde kalınır.",
   },
   {
-    question: "Hangi bölgelerde hizmet veriyorsunuz?",
-    answer:
-      "Ankara genelinde hizmet veriyoruz: Çankaya, Keçiören, Mamak, Yenimahalle, Etimesgut, Sincan, Altındağ, Gölbaşı, Pursaklar ve Çubuk başta olmak üzere tüm ilçelere ulaşıyoruz.",
+    kategori: "Malzeme & İşçilik",
+    soru: "Malzemeyi siz mi temin ediyorsunuz?",
+    cevap:
+      "Müşterinin tercihine göre malzeme temininde destek olabiliriz veya müşteri kendi malzemesini tercih edebilir. Kullanılacak malzeme seviyesi işe başlamadan önce konuşulur.",
   },
   {
-    question: "Tadilat sürecinde evde oturabilir miyim?",
-    answer:
-      "Komple tadilatlarda çalışma alanının büyüklüğüne bağlıdır. Tek oda veya banyo/mutfak gibi kısmi tadilatlar çoğunlukla evde konaklamayla yürütülebilir. Projenize özel bir plan hazırlayabilmek için keşif sırasında konuşalım.",
+    kategori: "Malzeme & İşçilik",
+    soru: "Hangi kalite seviyelerinde çalışıyorsunuz?",
+    cevap:
+      "Ekonomik, fiyat-performans ve premium çözüm seviyeleri sunulabilir. Burada önemli olan beklenti, bütçe ve kullanım amacına göre doğru çözümü belirlemektir.",
   },
   {
-    question: "Ödeme nasıl yapılıyor?",
-    answer:
-      "Ödeme planı sözleşmede net olarak belirlenir. Genellikle başlangıç, ara ve teslim olmak üzere üç aşamada ödeme yapılır. Farklı planlama seçenekleri için görüşebiliriz.",
+    kategori: "Malzeme & İşçilik",
+    soru: "İşçilik garantisi veriyor musunuz?",
+    cevap:
+      "İşçilik kaynaklı konularda işimizin arkasında durur, teslim sonrası müşterimizi yalnız bırakmayız. Kullanıcı hatası, malzeme hatası ve işçilik konusu ayrıca değerlendirilir.",
+  },
+  {
+    kategori: "Banyo & Mutfak",
+    soru: "Banyo tadilatı kaç gün sürer?",
+    cevap:
+      "Banyonun mevcut durumu, tesisat ihtiyacı, seramik uygulaması ve malzeme hazırlığına göre değişir. Keşif sonrası daha net süre verilir.",
+  },
+  {
+    kategori: "Banyo & Mutfak",
+    soru: "Mutfak tadilatı kaç gün sürer?",
+    cevap:
+      "Dolap, tezgâh, tesisat, elektrik ve zemin gibi kapsamlar süreyi belirler. Mevcut durum incelendikten sonra süreç planlanır.",
+  },
+  {
+    kategori: "Banyo & Mutfak",
+    soru: "Evde otururken banyo veya mutfak tadilatı yapılabilir mi?",
+    cevap:
+      "İşin kapsamına göre mümkündür; ancak konfor, temizlik ve kullanım düzeni açısından süreç baştan planlanmalıdır.",
+  },
+  {
+    kategori: "Teslimat & Destek",
+    soru: "İş bitiminde kontrol yapıyor musunuz?",
+    cevap:
+      "Teslim öncesi yapılan işler kontrol edilir. Eksik veya düzeltilmesi gereken detaylar varsa teslim sürecinde ele alınır.",
+  },
+  {
+    kategori: "Teslimat & Destek",
+    soru: "Tadilat sonrası destek veriyor musunuz?",
+    cevap:
+      "İşçilik kaynaklı konularda müşterimizi yalnız bırakmayız. Teslim sonrası iletişim desteği sağlarız.",
+  },
+  {
+    kategori: "Teslimat & Destek",
+    soru: "Hangi bölgelere hizmet veriyorsunuz?",
+    cevap:
+      "Ankara genelinde hizmet veriyoruz. Çankaya, İncek, Ümitköy, Gölbaşı, Etimesgut, Eryaman, Batıkent, Yenimahalle ve çevresi öncelikli hizmet bölgelerimiz arasındadır.",
+  },
+  {
+    kategori: "Teslimat & Destek",
+    soru: "WhatsApp'tan fotoğraf göndererek bilgi alabilir miyim?",
+    cevap:
+      "Evet. Tadilat yapılacak alanın fotoğraflarını WhatsApp üzerinden göndererek ön değerlendirme talep edebilirsiniz.",
+  },
+];
+
+const guvenKartlari = [
+  {
+    baslik: "Net Kapsam",
+    desc: "Yapılacak işler başlamadan önce yazılı olarak netleştirilir, kapsam dışı sürpriz olmaz.",
+  },
+  {
+    baslik: "Şeffaf Teklif",
+    desc: "İşçilik ve malzeme ayrı ayrı belirtilir. Ne için ne kadar ödediğinizi bilirsiniz.",
+  },
+  {
+    baslik: "Temiz Uygulama",
+    desc: "Doğru hazırlık, doğru malzeme ve disiplinli uygulama — görünen sonucun arkasında bunlar var.",
+  },
+  {
+    baslik: "Teslim Sonrası Destek",
+    desc: "İşçilik kaynaklı konularda müşterimizi yalnız bırakmayız. Teslim sonrası iletişim desteği sağlarız.",
   },
 ];
 
 export default function SSSClient() {
+  const [aktifKategori, setAktifKategori] = useState<Kategori>("Tümü");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
+  const filtrelenmis =
+    aktifKategori === "Tümü"
+      ? faqs
+      : faqs.filter((f) => f.kategori === aktifKategori);
 
-  const half = Math.ceil(faqs.length / 2);
-  const left = faqs.slice(0, half);
-  const right = faqs.slice(half);
+  const handleKategori = (k: Kategori) => {
+    setAktifKategori(k);
+    setOpenIndex(null);
+  };
 
   return (
     <>
-      <PageHero
-        label="SSS"
-        title="Sık Sorulan Sorular"
-        subtitle="Tadilat süreciyle ilgili merak ettiğiniz her şey burada. Yanıtını bulamazsanız WhatsApp üzerinden ulaşabilirsiniz."
-      />
-
-      <section className="bg-krem py-20 lg:py-28">
+      {/* ── 1. Hero ── */}
+      <section className="bg-antrasit pt-32 pb-20 lg:pt-40 lg:pb-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="grid lg:grid-cols-2 gap-x-12 gap-y-0">
-            {[left, right].map((col, colIdx) => (
-              <div key={colIdx}>
-                {col.map((faq, localIdx) => {
-                  const globalIndex = colIdx === 0 ? localIdx : half + localIdx;
-                  const isOpen = openIndex === globalIndex;
-                  return (
-                    <div
-                      key={faq.question}
-                      className="border-b border-bej last:border-b-0"
-                    >
-                      <button
-                        onClick={() => toggle(globalIndex)}
-                        aria-expanded={isOpen}
-                        className="w-full flex items-start justify-between gap-4 py-5 text-left"
-                      >
-                        <span className="font-heading text-sm font-bold text-antrasit leading-snug">
-                          {faq.question}
-                        </span>
-                        <span
-                          className={`flex-shrink-0 w-5 h-5 rounded-full border border-bej flex items-center justify-center text-taupe transition-transform duration-200 ${
-                            isOpen ? "rotate-45" : ""
-                          }`}
-                        >
-                          <svg
-                            width="10"
-                            height="10"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                          >
-                            <line x1="5" y1="1" x2="5" y2="9" />
-                            <line x1="1" y1="5" x2="9" y2="5" />
-                          </svg>
-                        </span>
-                      </button>
-                      {isOpen && (
-                        <p className="pb-5 text-sm text-taupe leading-relaxed font-sans pr-8">
-                          {faq.answer}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+          <div className="max-w-2xl">
+            <p className="text-xs uppercase tracking-[0.3em] text-gold mb-6 font-sans">
+              SSS
+            </p>
+            <h1 className="font-heading text-3xl lg:text-5xl font-bold text-white leading-tight mb-6">
+              Sıkça Sorulan
+              <br />
+              Sorular
+            </h1>
+            <p className="text-sm text-white/60 font-sans leading-relaxed mb-10 max-w-lg">
+              Tadilat sürecine başlamadan önce aklınızdaki fiyat, süre,
+              malzeme, keşif ve teslimat sorularını netleştirin.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {["Şeffaf Teklif", "Planlı Süreç", "Malzeme Açıklığı", "Teslim Sonrası Destek"].map(
+                (badge) => (
+                  <span
+                    key={badge}
+                    className="px-4 py-2 border border-white/20 text-white/70 text-xs font-sans tracking-wide"
+                  >
+                    {badge}
+                  </span>
+                )
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-white py-16 lg:py-20">
-        <div className="max-w-3xl mx-auto px-6 lg:px-10 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
-            Daha Fazla Soru?
-          </p>
-          <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit mb-4">
-            Aklınızdaki Her Şeyi Sorun
-          </h2>
-          <p className="text-taupe font-sans text-sm lg:text-base leading-relaxed mb-8">
-            Projenize özel sorular için WhatsApp üzerinden ulaşabilir ya da
-            ücretsiz keşif randevusu alabilirsiniz.
-          </p>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-white font-heading text-sm tracking-wide hover:bg-gold/90 transition-colors duration-200"
-          >
-            <WhatsAppIcon />
-            WhatsApp&apos;tan Sorun
-          </a>
-        </div>
-      </section>
+      {/* ── 2. Kategori Filtreleri + Accordion ── */}
+      <AnimatedSection>
+        <section className="bg-krem py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            {/* Filtreler */}
+            <div className="flex flex-wrap gap-2 mb-12">
+              {kategoriler.map((k) => (
+                <button
+                  key={k}
+                  onClick={() => handleKategori(k)}
+                  className={`px-4 py-2 text-xs font-heading font-bold tracking-wide transition-colors duration-200 ${
+                    aktifKategori === k
+                      ? "bg-antrasit text-white"
+                      : "bg-white border border-bej text-taupe hover:border-gold/50 hover:text-antrasit"
+                  }`}
+                >
+                  {k}
+                </button>
+              ))}
+            </div>
+
+            {/* Accordion */}
+            <div className="max-w-3xl">
+              {filtrelenmis.map((faq, i) => {
+                const isOpen = openIndex === i;
+                return (
+                  <div key={`${faq.kategori}-${i}`} className="border-b border-bej">
+                    <button
+                      onClick={() => setOpenIndex(isOpen ? null : i)}
+                      aria-expanded={isOpen}
+                      className="w-full flex items-start justify-between gap-4 py-5 text-left group"
+                    >
+                      <div className="flex items-start gap-3 flex-1 min-w-0">
+                        <span className="flex-shrink-0 mt-0.5 px-2 py-0.5 bg-white border border-bej text-[10px] text-taupe font-sans tracking-wide hidden sm:inline-block">
+                          {faq.kategori}
+                        </span>
+                        <span className="font-heading text-sm font-bold text-antrasit leading-snug group-hover:text-gold transition-colors duration-200">
+                          {faq.soru}
+                        </span>
+                      </div>
+                      <span
+                        className={`flex-shrink-0 w-6 h-6 rounded-full border border-bej flex items-center justify-center text-taupe transition-all duration-200 ${
+                          isOpen
+                            ? "rotate-45 border-gold text-gold bg-gold/5"
+                            : "group-hover:border-gold/50"
+                        }`}
+                      >
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        >
+                          <line x1="5" y1="1" x2="5" y2="9" />
+                          <line x1="1" y1="5" x2="9" y2="5" />
+                        </svg>
+                      </span>
+                    </button>
+                    {isOpen && (
+                      <p className="pb-5 text-sm text-taupe leading-relaxed font-sans pr-10 sm:pl-[calc(theme(spacing.2)+theme(spacing.2)+80px)]">
+                        {faq.cevap}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* ── 3. Güven Açıklaması ── */}
+      <AnimatedSection>
+        <section className="bg-white py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                  Yaklaşımımız
+                </p>
+                <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit leading-tight mb-6">
+                  Tadilatta Belirsizliği Azaltmak İçin Süreci Baştan Netleştiriyoruz
+                </h2>
+                <div className="w-10 h-px bg-gold mb-8" />
+                <p className="text-sm text-taupe font-sans leading-relaxed">
+                  Tadilat sürecinde müşterinin en büyük endişesi belirsizliktir.
+                  Bu yüzden Nivora&apos;da amaç; yapılacak işi, kullanılacak
+                  malzemeyi, uygulama sürecini ve teslim beklentisini mümkün
+                  olduğunca açık şekilde konuşmaktır.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {guvenKartlari.map((kart) => (
+                  <div key={kart.baslik} className="bg-krem p-6">
+                    <div className="w-8 h-px bg-gold mb-4" />
+                    <p className="font-heading text-sm font-bold text-antrasit mb-2">
+                      {kart.baslik}
+                    </p>
+                    <p className="text-xs text-taupe font-sans leading-relaxed">
+                      {kart.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
+
+      {/* ── 4. Final CTA ── */}
+      <AnimatedSection>
+        <section className="bg-antrasit py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-6 lg:px-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                  Sorunuz mu Var?
+                </p>
+                <h2 className="font-heading text-2xl lg:text-4xl font-bold text-white leading-tight mb-6">
+                  Aklınızdaki Soruyu
+                  <br />
+                  Bize Yazın
+                </h2>
+                <p className="text-sm text-white/60 font-sans leading-relaxed">
+                  Tadilat sürecinizle ilgili netleştirmek istediğiniz bir konu
+                  varsa WhatsApp üzerinden bize ulaşın. Fotoğraf göndererek ön
+                  değerlendirme de talep edebilirsiniz.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gold text-white font-heading text-sm tracking-wide hover:bg-gold/90 transition-colors duration-200"
+                >
+                  <WhatsAppIcon />
+                  WhatsApp&apos;tan Yaz
+                </a>
+                <Link
+                  href="/iletisim"
+                  className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white/70 font-heading text-sm tracking-wide hover:border-white/50 hover:text-white transition-colors duration-200"
+                >
+                  Ücretsiz Keşif Talep Et
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </AnimatedSection>
     </>
   );
 }

@@ -5,7 +5,9 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { EASE_OUT } from "@/lib/animations";
 
-const WHATSAPP_URL = "https://wa.me/905321234567";
+import { waUrl } from "@/data/contact";
+
+const WHATSAPP_URL = waUrl("photo");
 
 const badges = [
   { label: "Temiz Çalışma", icon: SparkleIcon },

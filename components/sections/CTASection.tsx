@@ -1,5 +1,7 @@
-const WHATSAPP_URL = "https://wa.me/905321234567";
-const PHONE = "0532 123 45 67";
+import { contact, waUrl } from "@/data/contact";
+
+const WHATSAPP_URL = waUrl("general");
+const PHONE = contact.phoneDisplay;
 
 export default function CTASection() {
   return (
@@ -23,7 +25,7 @@ export default function CTASection() {
             {/* Contact info */}
             <div className="mt-10 flex flex-col gap-4">
               <a
-                href={`tel:${PHONE.replace(/\s/g, "")}`}
+                href={contact.phoneHref}
                 className="flex items-center gap-3 text-white/60 hover:text-gold transition-colors text-sm font-sans"
               >
                 <PhoneIcon />

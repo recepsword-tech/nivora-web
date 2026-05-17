@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import { contact, waUrlRaw } from "@/data/contact";
 
-const WHATSAPP_URL = "https://wa.me/905321234567";
-const PHONE = "0532 123 45 67";
-const PHONE_SECONDARY = "0312 123 45 67";
+const WHATSAPP_URL = waUrlRaw();
+const PHONE = contact.phoneDisplay;
 
 const footerServices = [
   { label: "Anahtar Teslim Ev Tadilatı", href: "/hizmetler/anahtar-teslim-tadilat" },
@@ -101,11 +101,11 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li>
                 <a
-                  href={`tel:${PHONE_SECONDARY.replace(/\s/g, "")}`}
+                  href={contact.phoneHref}
                   className="flex items-center gap-2.5 hover:text-gold transition-colors"
                 >
                   <PhoneIcon />
-                  {PHONE_SECONDARY}
+                  {PHONE}
                 </a>
               </li>
               <li>
@@ -116,16 +116,16 @@ export default function Footer() {
                   className="flex items-center gap-2.5 hover:text-gold transition-colors"
                 >
                   <WhatsAppIcon />
-                  {PHONE}
+                  WhatsApp
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@nivora.com.tr"
+                  href={contact.emailHref}
                   className="flex items-center gap-2.5 hover:text-gold transition-colors"
                 >
                   <MailIcon />
-                  info@nivora.com.tr
+                  {contact.email}
                 </a>
               </li>
               <li className="flex items-start gap-2.5 text-white/40">
