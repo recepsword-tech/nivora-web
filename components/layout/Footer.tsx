@@ -102,6 +102,8 @@ export default function Footer() {
               <li>
                 <a
                   href={contact.phoneHref}
+                  data-gtm-event="click_phone"
+                  data-gtm-location="footer"
                   className="flex items-center gap-2.5 hover:text-gold transition-colors"
                 >
                   <PhoneIcon />
@@ -113,6 +115,8 @@ export default function Footer() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-gtm-event="click_whatsapp"
+                  data-gtm-location="footer"
                   className="flex items-center gap-2.5 hover:text-gold transition-colors"
                 >
                   <WhatsAppIcon />
@@ -122,6 +126,8 @@ export default function Footer() {
               <li>
                 <a
                   href={contact.emailHref}
+                  data-gtm-event="click_email"
+                  data-gtm-location="footer"
                   className="flex items-center gap-2.5 hover:text-gold transition-colors"
                 >
                   <MailIcon />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -35,6 +36,7 @@ export default function RootLayout({
       lang="tr"
       className={`${manrope.variable} ${inter.variable}`}
     >
+      <GoogleTagManager gtmId="GTM-T4DWDWFK" />
       <body className="min-h-full flex flex-col bg-krem text-antrasit">
         <JsonLd />
         <Header />

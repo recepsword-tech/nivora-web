@@ -26,6 +26,8 @@ export default function CTASection() {
             <div className="mt-10 flex flex-col gap-4">
               <a
                 href={contact.phoneHref}
+                data-gtm-event="click_phone"
+                data-gtm-location="cta_section"
                 className="flex items-center gap-3 text-white/60 hover:text-gold transition-colors text-sm font-sans"
               >
                 <PhoneIcon />
@@ -35,6 +37,8 @@ export default function CTASection() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-gtm-event="click_whatsapp"
+                data-gtm-location="cta_section"
                 className="flex items-center gap-3 text-white/60 hover:text-gold transition-colors text-sm font-sans"
               >
                 <WhatsAppIcon />
@@ -54,6 +58,9 @@ export default function CTASection() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-gtm-event="click_whatsapp"
+                data-gtm-location="cta_section"
+                data-gtm-label="kesif_talep"
                 className="flex items-center justify-between gap-4 px-7 py-5 bg-gold text-antrasit font-sans hover:bg-white transition-colors duration-200 group"
               >
                 <div className="flex items-center gap-3">
@@ -74,6 +81,9 @@ export default function CTASection() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-gtm-event="click_whatsapp"
+                data-gtm-location="cta_section"
+                data-gtm-label="whatsapp_yaz"
                 className="flex items-center justify-between gap-4 px-7 py-5 border border-white/20 text-white font-sans hover:border-white transition-colors duration-200 group"
               >
                 <div className="flex items-center gap-3">

@@ -368,6 +368,8 @@ export default function IletisimClient() {
 
                     <button
                       type="submit"
+                      data-gtm-event="submit_kesif_form"
+                      data-gtm-location="iletisim_page"
                       className="w-full flex items-center justify-center gap-2 py-4 bg-gold text-white font-heading text-sm tracking-wide hover:bg-gold/90 transition-colors duration-200"
                     >
                       <WhatsAppIcon />
