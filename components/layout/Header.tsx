@@ -20,7 +20,7 @@ const WHATSAPP_URL = waUrlRaw();
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [logoError, setLogoError] = useState(false);
+  const [logoError, setLogoError] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {

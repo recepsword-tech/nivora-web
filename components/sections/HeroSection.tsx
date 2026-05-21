@@ -1,9 +1,5 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
-import { EASE_OUT } from "@/lib/animations";
 
 import { waUrl } from "@/data/contact";
 
@@ -16,94 +12,55 @@ const badges = [
   { label: "Teslim Sonrası Destek", icon: ShieldIcon },
 ];
 
-function fadeProps(delay: number, y = 24, duration = 0.55) {
-  return {
-    initial: { opacity: 0, y },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration, delay, ease: EASE_OUT },
-  };
-}
-
 export default function HeroSection() {
-  const reduced = useReducedMotion();
-  const anim = (delay: number, y = 24) =>
-    reduced ? {} : fadeProps(delay, y);
-
   return (
     <section className="relative bg-krem min-h-screen flex flex-col lg:flex-row pt-16 overflow-hidden">
       {/* Left: Content */}
       <div className="flex-1 flex items-center py-20 lg:py-0">
         <div className="w-full px-6 sm:px-10 lg:pl-16 xl:pl-24 lg:pr-10">
-          <motion.p
-            {...anim(0, 16)}
-            className="text-xs uppercase tracking-[0.25em] text-gold mb-8 font-sans"
-          >
+          <p className="text-xs uppercase tracking-[0.25em] text-antrasit/65 mb-8 font-sans">
             Ankara — Anahtar Teslim Tadilat & Dekorasyon
-          </motion.p>
+          </p>
 
-          <motion.h1
-            {...anim(0.1)}
-            className="font-heading text-4xl sm:text-5xl lg:text-[50px] xl:text-[58px] font-bold text-antrasit leading-[1.1] mb-6"
-          >
-            Ankara&apos;da Güvenilir{" "}
-            <span className="relative whitespace-nowrap">
-              Anahtar Teslim
-              <span
-                aria-hidden
-                className="absolute left-0 -bottom-1 w-full h-0.5 bg-gold"
-              />
-            </span>{" "}
-            Tadilat &amp; Dekorasyon
-          </motion.h1>
+          <h1 className="font-heading text-4xl sm:text-5xl lg:text-[50px] xl:text-[58px] font-bold text-antrasit leading-[1.1] mb-6">
+            Ankara&apos;da Güvenilir Anahtar Teslim Tadilat &amp; Dekorasyon
+          </h1>
 
-          <motion.div {...anim(0.18, 0)} className="w-12 h-px bg-gold my-7" />
+          <div className="w-12 h-px bg-gold my-7" />
 
-          <motion.p
-            {...anim(0.22)}
-            className="text-base lg:text-lg text-taupe leading-relaxed mb-10 max-w-lg font-sans"
-          >
+          <p className="text-base lg:text-lg text-antrasit/65 leading-relaxed mb-10 max-w-lg font-sans">
             Nivora, evinizi temiz çalışma, ince işçilik ve planlı süreçle
             yenileyen modern tadilat-dekorasyon markasıdır.
-          </motion.p>
+          </p>
 
           {/* CTA Buttons */}
-          <motion.div
-            {...anim(0.32)}
-            className="flex flex-col sm:flex-row gap-3 mb-12"
-          >
-            <motion.div whileHover={reduced ? {} : { scale: 1.02 }} whileTap={reduced ? {} : { scale: 0.98 }}>
-              <Link
-                href="#iletisim"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-antrasit text-white text-sm tracking-wide font-sans hover:bg-gold transition-colors duration-200"
-              >
-                <CalendarIcon />
-                Ücretsiz Keşif Talep Et
-              </Link>
-            </motion.div>
-            <motion.div whileHover={reduced ? {} : { scale: 1.02 }} whileTap={reduced ? {} : { scale: 0.98 }}>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-antrasit/25 text-antrasit text-sm tracking-wide font-sans hover:bg-antrasit hover:text-white transition-all duration-200"
-              >
-                <WhatsAppIcon />
-                WhatsApp&apos;tan Fotoğraf Gönder
-              </a>
-            </motion.div>
-          </motion.div>
+          <div className="flex flex-col sm:flex-row gap-3 mb-12">
+            <Link
+              href="#iletisim"
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-4 bg-antrasit text-white text-sm tracking-wide font-sans hover:bg-gold transition-colors duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <CalendarIcon />
+              Ücretsiz Keşif Talep Et
+            </Link>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-antrasit/25 text-antrasit text-sm tracking-wide font-sans hover:bg-antrasit hover:text-white transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <WhatsAppIcon />
+              WhatsApp&apos;tan Fotoğraf Gönder
+            </a>
+          </div>
 
           {/* Feature badges */}
-          <motion.div
-            {...anim(0.44, 12)}
-            className="flex flex-wrap items-center gap-x-0 gap-y-3"
-          >
+          <div className="flex flex-wrap items-center gap-x-0 gap-y-3">
             {badges.map((badge, i) => {
               const Icon = badge.icon;
               return (
                 <div
                   key={badge.label}
-                  className={`flex items-center gap-2 text-xs text-taupe font-sans pr-5 ${
+                  className={`flex items-center gap-2 text-xs text-antrasit/70 font-sans pr-5 ${
                     i < badges.length - 1 ? "mr-5 border-r border-bej" : ""
                   }`}
                 >
@@ -114,18 +71,13 @@ export default function HeroSection() {
                 </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </div>
 
       {/* Right: Hero image */}
       <div className="relative lg:w-[44%] h-72 sm:h-96 lg:h-auto lg:min-h-screen overflow-hidden">
-        <motion.div
-          className="absolute inset-0"
-          initial={reduced ? false : { opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: EASE_OUT }}
-        >
+        <div className="absolute inset-0">
           <Image
             src="/images/hero/home-hero.png"
             alt="Nivora — modern iç mekan tadilat ve dekorasyon örneği"
@@ -142,20 +94,14 @@ export default function HeroSection() {
             aria-hidden
             className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/10 to-transparent"
           />
-        </motion.div>
+        </div>
         {/* Gold corner accents */}
-        <motion.div
+        <div
           aria-hidden
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
           className="absolute top-8 right-8 w-20 h-20 border-t-2 border-r-2 border-gold/50 z-10"
         />
-        <motion.div
+        <div
           aria-hidden
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.85 }}
           className="absolute bottom-8 left-8 w-20 h-20 border-b-2 border-l-2 border-gold/50 z-10"
         />
       </div>

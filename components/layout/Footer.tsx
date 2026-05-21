@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { contact, waUrlRaw } from "@/data/contact";
+import FooterLogo from "./FooterLogo";
 
 const WHATSAPP_URL = waUrlRaw();
 const PHONE = contact.phoneDisplay;
@@ -24,19 +24,9 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            {/* Logo */}
-            <Link href="/" className="inline-flex mb-5 hover:opacity-70 transition-opacity duration-200">
-              <div className="relative w-[130px] h-10">
-                <Image
-                  src="/images/logo/nivora-logo-light.png"
-                  alt="Nivora"
-                  fill
-                  className="object-contain object-left"
-                />
-              </div>
-            </Link>
+            <FooterLogo />
 
-            <p className="text-sm leading-relaxed text-white/45 mb-6 max-w-[220px]">
+            <p className="text-sm leading-relaxed text-white/70 mb-6 max-w-[220px]">
               Ankara&apos;da anahtar teslim tadilat ve dekorasyon çözümleri sunuyoruz.
               Temiz çalışma, ince işçilik, planlı süreç.
             </p>
@@ -52,7 +42,7 @@ export default function Footer() {
                   key={label}
                   href="#"
                   aria-label={label}
-                  className="w-8 h-8 border border-white/15 flex items-center justify-center text-white/40 hover:text-gold hover:border-gold transition-colors duration-200"
+                  className="w-8 h-8 border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold transition-colors duration-200"
                 >
                   <Icon />
                 </a>
@@ -86,7 +76,7 @@ export default function Footer() {
             </p>
             <ul className="space-y-3 text-sm">
               {regions.map((region) => (
-                <li key={region} className="text-white/45">
+                <li key={region} className="text-white/70">
                   {region}
                 </li>
               ))}
@@ -134,7 +124,7 @@ export default function Footer() {
                   {contact.email}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-white/40">
+              <li className="flex items-start gap-2.5 text-white/65">
                 <MapPinIcon />
                 <span>Çankaya / Ankara</span>
               </li>
@@ -144,17 +134,17 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30">
+          <p className="text-xs text-white/55">
             © {new Date().getFullYear()} Nivora. Tüm hakları saklıdır.
           </p>
-          <div className="flex items-center gap-6 text-xs text-white/30">
-            <Link href="#" className="hover:text-white/50 transition-colors">
+          <div className="flex items-center gap-6 text-xs text-white/55">
+            <Link href="#" className="hover:text-white/75 transition-colors">
               Gizlilik Politikası
             </Link>
-            <Link href="#" className="hover:text-white/50 transition-colors">
+            <Link href="#" className="hover:text-white/75 transition-colors">
               KVKK
             </Link>
-            <Link href="#" className="hover:text-white/50 transition-colors">
+            <Link href="#" className="hover:text-white/75 transition-colors">
               Çerez Politikası
             </Link>
           </div>

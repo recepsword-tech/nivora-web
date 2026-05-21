@@ -1,10 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
 import { services } from "@/data/services";
-import { EASE_OUT, DURATION } from "@/lib/animations";
 
 const serviceGradients = [
   "from-[#D4C9B8] to-[#B5A48F]",
@@ -25,8 +21,6 @@ const serviceIcons = [
 ];
 
 export default function ServicesSection() {
-  const reduced = useReducedMotion();
-
   return (
     <section id="hizmetler" className="bg-white py-24 lg:py-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -50,11 +44,9 @@ export default function ServicesSection() {
           {services.map((service, index) => {
             const Icon = serviceIcons[index % serviceIcons.length];
             return (
-              <motion.div
+              <div
                 key={service.id}
-                whileHover={reduced ? {} : { y: -6 }}
-                transition={{ duration: DURATION.fast, ease: EASE_OUT }}
-                className="group bg-krem border border-bej/60 overflow-hidden hover:shadow-lg hover:shadow-antrasit/5 hover:border-gold/20 transition-shadow transition-colors duration-300 cursor-default"
+                className="group bg-krem border border-bej/60 overflow-hidden hover:shadow-lg hover:shadow-antrasit/5 hover:border-gold/20 transition-all duration-300 cursor-default hover:-translate-y-1.5"
               >
                 {/* Image area */}
                 <div className="relative h-48 overflow-hidden">
@@ -116,7 +108,7 @@ export default function ServicesSection() {
                     <ArrowRight />
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

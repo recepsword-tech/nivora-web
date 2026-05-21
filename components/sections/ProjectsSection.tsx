@@ -1,9 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
 import { projects } from "@/data/projects";
-import { EASE_OUT, DURATION } from "@/lib/animations";
 
 const fallbackGradients = [
   "from-[#3A3530] to-[#262220]",
@@ -15,7 +11,6 @@ const fallbackGradients = [
 ];
 
 export default function ProjectsSection() {
-  const reduced = useReducedMotion();
   const featured = projects[0];
   const rest = projects.slice(1);
 
@@ -38,11 +33,7 @@ export default function ProjectsSection() {
         </div>
 
         {/* Featured card */}
-        <motion.div
-          whileHover={reduced ? {} : { y: -4 }}
-          transition={{ duration: DURATION.fast, ease: EASE_OUT }}
-          className="mb-6 border border-white/10 overflow-hidden hover:border-gold/25 transition-colors duration-300 group"
-        >
+        <div className="mb-6 border border-white/10 overflow-hidden hover:border-gold/25 transition-all duration-300 group hover:-translate-y-1">
           <div className="grid grid-cols-1 lg:grid-cols-2">
             {/* Image */}
             <div className="relative h-64 lg:h-80 overflow-hidden">
@@ -85,16 +76,14 @@ export default function ProjectsSection() {
               <div className="w-8 h-px bg-gold mt-6" />
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
           {rest.map((project, idx) => (
-            <motion.div
+            <div
               key={project.id}
-              whileHover={reduced ? {} : { y: -4 }}
-              transition={{ duration: DURATION.fast, ease: EASE_OUT }}
-              className="bg-antrasit group overflow-hidden hover:bg-antrasit/90 transition-colors duration-200 relative z-0 hover:z-10"
+              className="bg-antrasit group overflow-hidden hover:bg-antrasit/90 transition-all duration-200 relative z-0 hover:z-10 hover:-translate-y-1"
             >
               {/* Image */}
               <div className="relative h-52 overflow-hidden">
@@ -144,7 +133,7 @@ export default function ProjectsSection() {
                   <span>{project.duration}</span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
