@@ -5,6 +5,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/seo/JsonLd";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <SpeedInsights />
         <Script
           id="gtm"
           strategy="lazyOnload"
