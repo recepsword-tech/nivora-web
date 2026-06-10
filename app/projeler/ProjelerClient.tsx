@@ -2,112 +2,65 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import AnimatedSection from "@/components/motion/AnimatedSection";
 import { waUrl } from "@/data/contact";
 
 const WHATSAPP_URL = waUrl("photo");
+const BASE = "/images/Nivora-referans-gorseller";
 
-const badges = [
-  "Temiz Çalışma",
-  "İnce İşçilik",
-  "Estetik Dönüşüm",
-  "Planlı Süreç",
-];
-
-type Project = {
+type MediaItem = {
   id: string;
+  type: "video" | "image";
+  src: string;
+  title: string;
   filterKey: string;
   categoryLabel: string;
-  title: string;
-  desc: string;
-  hizmet: string;
-  hizmetHref: string;
-  image: string;
 };
 
-const projects: Project[] = [
-  {
-    id: "banyo",
-    filterKey: "Banyo",
-    categoryLabel: "Banyo Yenileme",
-    title: "Banyo Yenileme Konsept Dönüşümü",
-    desc: "Eski ve yıpranmış bir banyonun modern, ferah ve kullanışlı bir alana dönüşüm yaklaşımını gösterir.",
-    hizmet: "Banyo Yenileme Hizmeti",
-    hizmetHref: "/hizmetler/banyo-yenileme",
-    image: "/images/before-after/banyo-before-after.png",
-  },
-  {
-    id: "mutfak",
-    filterKey: "Mutfak",
-    categoryLabel: "Mutfak Yenileme",
-    title: "Mutfak Yenileme Konsept Dönüşümü",
-    desc: "Mutfakta depolama, tezgâh kullanımı, aydınlatma ve modern görünümün birlikte ele alındığı dönüşüm yaklaşımı.",
-    hizmet: "Mutfak Yenileme Hizmeti",
-    hizmetHref: "/hizmetler/mutfak-yenileme",
-    image: "/images/before-after/mutfak-before-after.png",
-  },
-  {
-    id: "komple-ev",
-    filterKey: "Komple Ev",
-    categoryLabel: "Komple Ev Yenileme",
-    title: "Komple Ev Yenileme Konsept Dönüşümü",
-    desc: "Yaşam alanının zemin, duvar, ışık ve dekoratif detaylarla daha estetik ve kullanışlı hale getirilmesi.",
-    hizmet: "Anahtar Teslim Tadilat Hizmeti",
-    hizmetHref: "/hizmetler/anahtar-teslim-tadilat",
-    image: "/images/before-after/komple-ev-before-after.png",
-  },
-  {
-    id: "ticari",
-    filterKey: "Ticari Alan",
-    categoryLabel: "Ticari Alan",
-    title: "Ticari Alan Konsept Uygulaması",
-    desc: "Mağaza ve ticari alanlarda ilk izlenim, ışık, sergileme ve kullanım düzenine odaklanan uygulama yaklaşımı.",
-    hizmet: "Mağaza & Ticari Alan Hizmeti",
-    hizmetHref: "/hizmetler/magaza-ticari-alan",
-    image: "/images/projects/konsept-magaza-uygulamasi.png",
-  },
-  {
-    id: "ince-iscilik",
-    filterKey: "İnce İşçilik",
-    categoryLabel: "İnce İşçilik",
-    title: "İnce İşçilik ve Yüzey Detayı",
-    desc: "Köşe, yüzey, tavan-duvar birleşimi ve bitiş detaylarında temiz işçilik yaklaşımı.",
-    hizmet: "Boya, Alçı ve İnce İşçilik",
-    hizmetHref: "/hizmetler/boya-alci-ince-iscilik",
-    image: "/images/services/boya-alci-ince-iscilik.png",
-  },
+const media: MediaItem[] = [
+  { id: "b1",  type: "video", src: `${BASE}/banyo-tadilati.mp4`,          title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b2",  type: "video", src: `${BASE}/banyo-tadilati-2.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b3",  type: "image", src: `${BASE}/banyo-tadilati-6.jpeg`,       title: "Banyo Detayı",        filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b4",  type: "video", src: `${BASE}/banyo-tadilati-7.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b5",  type: "video", src: `${BASE}/banyo-tadilati-8.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b6",  type: "video", src: `${BASE}/banyo-tadilati-9.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b7",  type: "video", src: `${BASE}/banyo-tadilati-11.mp4`,       title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b8",  type: "video", src: `${BASE}/banyo-tadilati-12.mp4`,       title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b9",  type: "video", src: `${BASE}/komple-banyo-tadilati.mp4`,   title: "Komple Banyo",        filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b10", type: "video", src: `${BASE}/tuvalet-banyo-tadilati.mp4`,  title: "Tuvalet & Banyo",     filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "e1",  type: "image", src: `${BASE}/ev-ic-dizayn-merdiven-3.jpeg`,title: "Merdiven Dizayn",     filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e2",  type: "video", src: `${BASE}/ev-ic-dizayn-merdiven-4.mp4`, title: "Merdiven Uygulaması", filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e3",  type: "video", src: `${BASE}/ev-ic-dizayn-tas-doseme.mp4`, title: "Taş Döşeme",          filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e4",  type: "video", src: `${BASE}/ev-ici-dizayn.mp4`,           title: "İç Mekan Dizayn",     filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e5",  type: "image", src: `${BASE}/somine.jpeg`,                 title: "Şömine Uygulaması",   filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "v1",  type: "video", src: `${BASE}/balkon-dizayn-4.mp4`,         title: "Balkon Dizayn",       filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
+  { id: "v2",  type: "video", src: `${BASE}/balkon-tadilati-1.mp4`,       title: "Balkon Tadilat",      filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
+  { id: "v3",  type: "video", src: `${BASE}/veranda-tadilati.mp4`,        title: "Veranda Yenileme",    filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
+  { id: "t1",  type: "video", src: `${BASE}/dukkan-ic-dizayn.mp4`,        title: "Dükkan İç Dizayn",   filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t2",  type: "video", src: `${BASE}/dukkan-tadilati.mp4`,         title: "Dükkan Tadilat",      filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t3",  type: "image", src: `${BASE}/kafe-ici.jpeg`,               title: "Kafe İç Mekan",       filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t4",  type: "image", src: `${BASE}/kafe-ici-3.jpeg`,             title: "Kafe Uygulama",       filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t5",  type: "image", src: `${BASE}/kafe-ici-ince-detay-1.jpeg`,  title: "Kafe İnce Detay",     filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
 ];
 
-const filterKeys = ["Tümü", "Banyo", "Mutfak", "Komple Ev", "Ticari Alan", "İnce İşçilik"];
+const filters = [
+  { key: "Tümü",   label: "Tümü" },
+  { key: "Banyo",  label: "Banyo" },
+  { key: "Ev",     label: "Ev & İç Dizayn" },
+  { key: "Balkon", label: "Balkon & Veranda" },
+  { key: "Ticari", label: "Ticari Alan" },
+];
 
 const yaklasilar = [
-  {
-    n: "01",
-    title: "Önce ihtiyacı anlarız",
-    desc: "Her mekân ve her bütçe farklıdır. Yapılacak işi, kullanım amacını ve beklentiyi baştan dinleriz.",
-  },
-  {
-    n: "02",
-    title: "Kapsamı ve malzemeyi netleştiririz",
-    desc: "İşçilik ve malzeme ayrı belirtilen yazılı teklif hazırlanır. Onayınız olmadan başlamayız.",
-  },
-  {
-    n: "03",
-    title: "Temiz ve planlı uygularız",
-    desc: "Aşamalı takvim, düzenli çalışma alanı ve ilerlemenin fotoğrafla paylaşılması standart sürecimizdir.",
-  },
-  {
-    n: "04",
-    title: "Son kontrolle teslim ederiz",
-    desc: "Her detay kontrol edilir. Alan temizlenerek, eksiksiz ve kullanıma hazır şekilde teslim edilir.",
-  },
+  { n: "01", title: "Önce ihtiyacı anlarız",          desc: "Her mekân ve her bütçe farklıdır. Yapılacak işi, kullanım amacını ve beklentiyi baştan dinleriz." },
+  { n: "02", title: "Kapsamı ve malzemeyi netleştiririz", desc: "İşçilik ve malzeme ayrı belirtilen yazılı teklif hazırlanır. Onayınız olmadan başlamayız." },
+  { n: "03", title: "Temiz ve planlı uygularız",      desc: "Aşamalı takvim, düzenli çalışma alanı ve ilerlemenin fotoğrafla paylaşılması standart sürecimizdir." },
+  { n: "04", title: "Son kontrolle teslim ederiz",    desc: "Her detay kontrol edilir. Alan temizlenerek, eksiksiz ve kullanıma hazır şekilde teslim edilir." },
 ];
 
 export default function ProjelerClient() {
   const [active, setActive] = useState("Tümü");
-
-  const filtered = active === "Tümü" ? projects : projects.filter((p) => p.filterKey === active);
+  const filtered = active === "Tümü" ? media : media.filter((m) => m.filterKey === active);
 
   return (
     <>
@@ -116,143 +69,91 @@ export default function ProjelerClient() {
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-20 lg:py-28">
           <div className="max-w-2xl">
             <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5 font-sans">
-              Dönüşüm Örnekleri
+              Referans İşler
             </p>
             <h1 className="font-heading text-3xl lg:text-5xl font-bold text-white leading-tight mb-6">
-              Seçili Dönüşüm Örnekleri
+              Tamamlanan İşlerimizden
             </h1>
             <div className="w-10 h-px bg-gold mb-6" />
-            <p className="text-white/60 font-sans text-base leading-relaxed mb-10">
-              Nivora&apos;nın anahtar teslim tadilat, banyo yenileme, mutfak
-              yenileme ve ticari alan uygulamalarındaki yaklaşımını gösteren
-              konsept dönüşüm örneklerini inceleyin.
+            <p className="text-white/60 font-sans text-base leading-relaxed">
+              Banyo yenileme, iç mekan dizayn, balkon &amp; veranda ve ticari alan tadilat
+              çalışmalarımızdan gerçek görseller ve videolar.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {badges.map((b) => (
-                <span
-                  key={b}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gold/25 text-[11px] text-gold/75 font-heading tracking-wide"
-                >
-                  <span className="w-1 h-1 rounded-full bg-gold/50 inline-block" />
-                  {b}
-                </span>
-              ))}
-            </div>
           </div>
         </div>
         <div className="h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
       </section>
 
-      {/* ── 2 & 3. FİLTRE + KARTLAR ── */}
+      {/* ── 2. FİLTRE + GALERİ ── */}
       <section className="bg-krem py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
+
           {/* Filters */}
-          <div className="flex flex-wrap gap-2 mb-14">
-            {filterKeys.map((key) => (
-              <button
-                key={key}
-                onClick={() => setActive(key)}
-                className={`px-4 py-2 text-xs font-heading font-bold tracking-wide border transition-colors duration-200 ${
-                  active === key
-                    ? "bg-antrasit text-white border-antrasit"
-                    : "bg-white text-taupe border-bej hover:border-antrasit/40 hover:text-antrasit"
-                }`}
-              >
-                {key}
-              </button>
-            ))}
+          <div className="flex flex-wrap gap-2 mb-12">
+            {filters.map((f) => {
+              const count = f.key === "Tümü" ? media.length : media.filter((m) => m.filterKey === f.key).length;
+              return (
+                <button
+                  key={f.key}
+                  onClick={() => setActive(f.key)}
+                  className={`px-4 py-2 text-xs font-heading font-bold tracking-wide border transition-colors duration-200 ${
+                    active === f.key
+                      ? "bg-antrasit text-white border-antrasit"
+                      : "bg-white text-taupe border-bej hover:border-antrasit/40 hover:text-antrasit"
+                  }`}
+                >
+                  {f.label}
+                  <span className={`ml-1.5 text-[10px] font-sans font-normal ${active === f.key ? "text-gold" : "text-taupe/50"}`}>
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((project) => (
-              <div
-                key={project.id}
-                className="group bg-white overflow-hidden flex flex-col"
-              >
-                {/* Image */}
-                <div className="relative h-56 overflow-hidden flex-shrink-0">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute top-3 left-3 bg-antrasit/85 px-3 py-1 border border-gold/20">
-                    <span className="text-gold text-[10px] font-heading tracking-widest uppercase">
-                      Konsept Örnek
-                    </span>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filtered.map((item) => (
+              <div key={item.id} className="group overflow-hidden bg-white">
+                <div className="relative h-56 overflow-hidden bg-antrasit/10">
+                  {item.type === "video" ? (
+                    <video
+                      src={item.src}
+                      controls
+                      playsInline
+                      preload="none"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Image
+                      src={item.src}
+                      alt={item.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  )}
                 </div>
-
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-1">
-                  <p className="text-[10px] text-gold font-heading font-bold tracking-[0.25em] uppercase mb-2">
-                    {project.categoryLabel}
-                  </p>
-                  <h3 className="font-heading text-sm font-bold text-antrasit mb-3 leading-snug">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs text-taupe font-sans leading-relaxed mb-5 flex-1">
-                    {project.desc}
-                  </p>
-
-                  {/* Hizmet tag + CTA */}
-                  <div className="border-t border-bej pt-4 flex items-center justify-between gap-3">
-                    <span className="text-[10px] text-taupe/70 font-sans">
-                      {project.hizmet}
+                <div className="px-4 py-3 flex items-center justify-between border-t border-bej">
+                  <span className="text-[10px] text-gold font-heading font-bold tracking-widest uppercase">
+                    {item.categoryLabel}
+                  </span>
+                  {item.type === "video" && (
+                    <span className="flex items-center gap-1 text-[10px] text-taupe/60 font-sans">
+                      <PlayIcon />
+                      Video
                     </span>
-                    <Link
-                      href={project.hizmetHref}
-                      className="text-[10px] font-heading font-bold text-gold tracking-wide hover:text-gold/70 transition-colors duration-200 whitespace-nowrap"
-                    >
-                      Hizmet Detayı →
-                    </Link>
-                  </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
-
-          {/* Disclaimer */}
-          <p className="text-xs text-taupe/60 font-sans mt-10 text-center leading-relaxed">
-            Tüm görseller konsept dönüşüm örnekleridir; gerçek tamamlanan
-            projeleri temsil etmemektedir.
-          </p>
         </div>
       </section>
 
-      {/* ── 4. GERÇEK PROJE NOTU ── */}
+      {/* ── 3. PROJE YAKLAŞIMI ── */}
       <AnimatedSection>
-        <section className="bg-white py-20 lg:py-24">
-          <div className="max-w-7xl mx-auto px-6 lg:px-10">
-            <div className="border border-bej p-10 lg:p-14 max-w-3xl mx-auto text-center">
-              <div className="w-8 h-px bg-gold mx-auto mb-8" />
-              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5 font-sans">
-                Portföy Güncellemesi
-              </p>
-              <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit mb-5 leading-tight">
-                Gerçek Proje Fotoğraflarıyla
-                <br />
-                Güncellenecek
-              </h2>
-              <p className="text-sm text-taupe font-sans leading-relaxed max-w-xl mx-auto">
-                Bu alan, Nivora&apos;nın tamamlanan işlerinden gelecek gerçek
-                fotoğraflar ve müşteri yorumlarıyla düzenli olarak
-                güncellenecektir. Gerçek proje görselleri eklendikçe her
-                dönüşüm; lokasyon, yapılan işler, süreç ve teslim detaylarıyla
-                birlikte paylaşılacaktır.
-              </p>
-              <div className="w-8 h-px bg-gold mx-auto mt-8" />
-            </div>
-          </div>
-        </section>
-      </AnimatedSection>
-
-      {/* ── 5. PROJE YAKLAŞIMI ── */}
-      <AnimatedSection>
-        <section className="bg-krem py-20 lg:py-28">
+        <section className="bg-white py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
             <div className="text-center mb-14">
               <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
@@ -266,7 +167,7 @@ export default function ProjelerClient() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {yaklasilar.map((y) => (
-                <div key={y.n} className="bg-white p-7 border border-bej">
+                <div key={y.n} className="bg-krem p-7 border border-bej">
                   <span className="font-heading text-2xl font-bold text-gold/30 block mb-4">
                     {y.n}
                   </span>
@@ -283,7 +184,7 @@ export default function ProjelerClient() {
         </section>
       </AnimatedSection>
 
-      {/* ── 6. FINAL CTA ── */}
+      {/* ── 4. FINAL CTA ── */}
       <AnimatedSection>
         <section className="bg-antrasit py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -332,6 +233,14 @@ export default function ProjelerClient() {
         </section>
       </AnimatedSection>
     </>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="5,3 19,12 5,21" />
+    </svg>
   );
 }
 

@@ -418,65 +418,46 @@ export default function BanyoYenilemePage() {
         </section>
       </AnimatedSection>
 
-      {/* ── 5. ÖRNEK DÖNÜŞÜM ── */}
+      {/* ── 5. TAMAMLANAN BANYO İŞLERİMİZDEN ── */}
       <AnimatedSection>
         <section className="bg-antrasit py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Image */}
-              <div className="relative overflow-hidden">
-                <div className="relative h-72 lg:h-96">
-                  <Image
-                    src="/images/before-after/banyo-before-after.png"
-                    alt="Banyo yenileme konsept dönüşüm örneği"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                  <div className="absolute top-4 left-4 bg-antrasit/90 px-3 py-1.5 border border-gold/30">
-                    <span className="text-gold text-[10px] font-heading tracking-widest uppercase">
-                      Konsept Örnek
-                    </span>
-                  </div>
-                </div>
-              </div>
+            <div className="mb-10">
+              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
+                Referans İşler
+              </p>
+              <h2 className="font-heading text-2xl lg:text-3xl font-bold text-white mb-4 leading-tight">
+                Tamamlanan Banyo İşlerimizden
+              </h2>
+              <div className="w-10 h-px bg-gold" />
+            </div>
 
-              {/* Text */}
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5 font-sans">
-                  Dönüşüm Örneği
-                </p>
-                <h2 className="font-heading text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight">
-                  Banyo Yenileme Konsept Dönüşümü
-                </h2>
-                <div className="w-10 h-px bg-gold mb-8" />
-                <p className="text-sm text-white/55 font-sans leading-relaxed mb-6">
-                  Gerçek proje fotoğrafları geldikçe bu alan Nivora&apos;nın
-                  tamamlanan işleriyle güncellenecektir.
-                </p>
-                <p className="text-xs text-white/30 font-sans italic border-l-2 border-gold/20 pl-4">
-                  Bu görsel konsept tasarım amacıyla hazırlanmıştır; gerçek
-                  bir tamamlanan projeyi temsil etmemektedir.
-                </p>
-
-                {/* Mini stats */}
-                <div className="mt-10 grid grid-cols-3 gap-4">
-                  {[
-                    { v: "10–18", l: "Ortalama İş Günü" },
-                    { v: "1 Yıl", l: "İşçilik Garantisi" },
-                    { v: "Yazılı", l: "Sözleşme & Teklif" },
-                  ].map((s) => (
-                    <div key={s.l} className="border-l border-gold/25 pl-4">
-                      <p className="font-heading text-lg font-bold text-gold mb-0.5">
-                        {s.v}
-                      </p>
-                      <p className="text-[10px] text-white/45 font-sans leading-tight">
-                        {s.l}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3 mb-12">
+              <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
+                <video src="/images/Nivora-referans-gorseller/banyo-tadilati.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
               </div>
+              <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
+                <video src="/images/Nivora-referans-gorseller/banyo-tadilati-2.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+              </div>
+              <div className="relative h-48 lg:h-56 overflow-hidden bg-antrasit/60">
+                <Image src="/images/Nivora-referans-gorseller/banyo-tadilati-6.jpeg" alt="Banyo tadilatı" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
+              </div>
+              <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
+                <video src="/images/Nivora-referans-gorseller/komple-banyo-tadilati.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-6 max-w-xs">
+              {[
+                { v: "10–18", l: "Ortalama İş Günü" },
+                { v: "1 Yıl", l: "İşçilik Garantisi" },
+                { v: "Yazılı", l: "Sözleşme & Teklif" },
+              ].map((s) => (
+                <div key={s.l} className="border-l border-gold/25 pl-4">
+                  <p className="font-heading text-lg font-bold text-gold mb-0.5">{s.v}</p>
+                  <p className="text-[10px] text-white/45 font-sans leading-tight">{s.l}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
