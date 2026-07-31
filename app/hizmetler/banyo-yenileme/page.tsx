@@ -418,46 +418,67 @@ export default function BanyoYenilemePage() {
         </section>
       </AnimatedSection>
 
-      {/* ── 5. TAMAMLANAN BANYO İŞLERİMİZDEN ── */}
+      {/* ── 5. GERÇEK PROJE ── */}
       <AnimatedSection>
         <section className="bg-antrasit py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
-            <div className="mb-10">
-              <p className="text-xs uppercase tracking-[0.3em] text-gold mb-4 font-sans">
-                Referans İşler
-              </p>
-              <h2 className="font-heading text-2xl lg:text-3xl font-bold text-white mb-4 leading-tight">
-                Tamamlanan Banyo İşlerimizden
-              </h2>
-              <div className="w-10 h-px bg-gold" />
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3 mb-12">
-              <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/banyo-tadilati.mp4" poster="/images/video-posters/banyo-tadilati.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
-              </div>
-              <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/banyo-tadilati-2.mp4" poster="/images/video-posters/banyo-tadilati-2.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
-              </div>
-              <div className="relative h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <Image src="/images/Nivora-referans-gorseller/banyo-tadilati-6.jpeg" alt="Banyo tadilatı" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
-              </div>
-              <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/komple-banyo-tadilati.mp4" poster="/images/video-posters/komple-banyo-tadilati.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-6 max-w-xs">
-              {[
-                { v: "10–18", l: "Ortalama İş Günü" },
-                { v: "1 Yıl", l: "İşçilik Garantisi" },
-                { v: "Yazılı", l: "Sözleşme & Teklif" },
-              ].map((s) => (
-                <div key={s.l} className="border-l border-gold/25 pl-4">
-                  <p className="font-heading text-lg font-bold text-gold mb-0.5">{s.v}</p>
-                  <p className="text-[10px] text-white/45 font-sans leading-tight">{s.l}</p>
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <div className="relative h-72 lg:h-[420px] overflow-hidden bg-antrasit/60">
+                <Image
+                  src="/images/real-projects/banyo-tadilati-uygulama-asamasi.avif"
+                  alt="Gerçek banyo tadilatı uygulama aşaması ve seramik işçiliği"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+                <div className="absolute top-4 left-4 bg-antrasit/90 px-3 py-1.5 border border-gold/30">
+                  <span className="text-gold text-[10px] font-heading tracking-widest uppercase">
+                    Uygulama Aşaması
+                  </span>
                 </div>
-              ))}
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5 font-sans">
+                  Gerçek Proje
+                </p>
+                <h2 className="font-heading text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight">
+                  Banyo Uygulama Aşamasından
+                </h2>
+                <div className="w-10 h-px bg-gold mb-8" />
+                <p className="text-sm text-white/60 font-sans leading-relaxed mb-7">
+                  Büyük ebat seramiklerin birleşim çizgileri, duş alanının
+                  zemini ve tesisat noktaları uygulama boyunca birlikte
+                  kontrol edildi. Fotoğraf, işin montaj öncesi gerçek
+                  aşamasını gösteriyor.
+                </p>
+
+                <ul className="space-y-3 mb-10">
+                  {[
+                    "Büyük ebat seramik uygulaması",
+                    "Duş alanı ve cam bölme hazırlığı",
+                    "Gömme rezervuar ve tesisat noktaları",
+                  ].map((detail) => (
+                    <li key={detail} className="flex items-center gap-3 text-sm text-white/65 font-sans">
+                      <span className="w-1.5 h-1.5 bg-gold flex-shrink-0" />
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="grid grid-cols-3 gap-4 max-w-sm">
+                  {[
+                    { v: "10–18", l: "Ortalama İş Günü" },
+                    { v: "1 Yıl", l: "İşçilik Garantisi" },
+                    { v: "Yazılı", l: "Sözleşme & Teklif" },
+                  ].map((s) => (
+                    <div key={s.l} className="border-l border-gold/25 pl-4">
+                      <p className="font-heading text-lg font-bold text-gold mb-0.5">{s.v}</p>
+                      <p className="text-[10px] text-white/45 font-sans leading-tight">{s.l}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>

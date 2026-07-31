@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { waUrlRaw } from "@/data/contact";
+import NivoraLogo from "@/components/brand/NivoraLogo";
 
 const navLinks = [
   { href: "/", label: "Ana Sayfa" },
@@ -20,7 +20,6 @@ const WHATSAPP_URL = waUrlRaw();
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [logoError, setLogoError] = useState(true);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -43,23 +42,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity duration-200">
-            {logoError ? (
-              <span className="font-heading text-lg font-bold tracking-[0.2em] text-white">
-                NIVORA
-              </span>
-            ) : (
-              <div className="relative w-[110px] lg:w-[140px] h-8 lg:h-9">
-                <Image
-                  src="/images/logo/nivora-logo-light.png"
-                  alt="Nivora"
-                  fill
-                  className="object-contain object-left"
-                  onError={() => setLogoError(true)}
-                  priority
-                />
-              </div>
-            )}
+          <Link
+            href="/"
+            aria-label="Nivora ana sayfa"
+            className="flex items-center hover:opacity-80 transition-opacity duration-200"
+          >
+            <NivoraLogo compact />
           </Link>
 
           {/* Desktop Nav */}

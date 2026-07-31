@@ -18,6 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://dekorasyontadilatankara.com"),
   title: "Nivora | Ankara Anahtar Teslim Tadilat & Dekorasyon",
   description:
     "Nivora, Ankara'da ev, banyo, mutfak ve ticari alanlar için temiz çalışma, ince işçilik ve güvenilir süreç odaklı tadilat ve dekorasyon hizmeti sunar.",

@@ -414,7 +414,7 @@ export default function MutfakYenilemePage() {
         </section>
       </AnimatedSection>
 
-      {/* ── 5. ÖRNEK DÖNÜŞÜM ── */}
+      {/* ── 5. GERÇEK PROJE ── */}
       <AnimatedSection>
         <section className="bg-antrasit py-20 lg:py-28">
           <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -423,15 +423,15 @@ export default function MutfakYenilemePage() {
               <div className="relative overflow-hidden">
                 <div className="relative h-72 lg:h-96">
                   <Image
-                    src="/images/before-after/mutfak-before-after.png"
-                    alt="Mutfak yenileme konsept dönüşüm örneği"
+                    src="/images/real-projects/mutfak-tadilati-gercek-proje.avif"
+                    alt="Tamamlanan gerçek mutfak tadilatı uygulaması"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   <div className="absolute top-4 left-4 bg-antrasit/90 px-3 py-1.5 border border-gold/30">
                     <span className="text-gold text-[10px] font-heading tracking-widest uppercase">
-                      Konsept Örnek
+                      Gerçek Proje
                     </span>
                   </div>
                 </div>
@@ -440,20 +440,30 @@ export default function MutfakYenilemePage() {
               {/* Text */}
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-gold mb-5 font-sans">
-                  Dönüşüm Örneği
+                  Tamamlanan Uygulama
                 </p>
                 <h2 className="font-heading text-2xl lg:text-3xl font-bold text-white mb-6 leading-tight">
-                  Mutfak Yenileme Konsept Dönüşümü
+                  Tamamlanan Mutfak Uygulamamızdan
                 </h2>
                 <div className="w-10 h-px bg-gold mb-8" />
                 <p className="text-sm text-white/55 font-sans leading-relaxed mb-6">
-                  Gerçek proje fotoğrafları geldikçe bu alan Nivora&apos;nın
-                  tamamlanan işleriyle güncellenecektir.
+                  Tavan hizasına kadar devam eden dolaplar, kesintisiz tezgâh
+                  hattı ve tezgâh altı aydınlatmayla sade, ferah ve günlük
+                  kullanımı güçlü bir mutfak ortaya çıktı.
                 </p>
-                <p className="text-xs text-white/30 font-sans italic border-l-2 border-gold/20 pl-4">
-                  Bu görsel konsept tasarım amacıyla hazırlanmıştır; gerçek
-                  bir tamamlanan projeyi temsil etmemektedir.
-                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {["Tavana Kadar Depolama", "Kesintisiz Tezgâh", "Gizli LED Aydınlatma"].map(
+                    (detail) => (
+                      <span
+                        key={detail}
+                        className="px-3 py-1.5 border border-white/15 text-xs text-white/60 font-sans"
+                      >
+                        {detail}
+                      </span>
+                    )
+                  )}
+                </div>
 
                 {/* Mini stats */}
                 <div className="mt-10 grid grid-cols-3 gap-4">

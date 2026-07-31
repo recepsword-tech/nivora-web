@@ -1,6 +1,6 @@
 import { contact } from "@/data/contact";
 
-const SITE_URL = "https://nivoradekorasyon.com";
+const SITE_URL = "https://dekorasyontadilatankara.com";
 
 const schema = {
   "@context": "https://schema.org",
