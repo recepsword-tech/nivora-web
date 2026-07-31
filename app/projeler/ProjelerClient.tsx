@@ -21,6 +21,8 @@ type MediaItem = {
 };
 
 const media: MediaItem[] = [
+  { id: "real-bathroom", type: "image", src: "/images/real-projects/banyo-tadilati-uygulama-asamasi.avif", title: "Gerçek Banyo Uygulama Aşaması", filterKey: "Banyo", categoryLabel: "Gerçek Proje · Banyo" },
+  { id: "real-kitchen",  type: "image", src: "/images/real-projects/mutfak-tadilati-gercek-proje.avif",      title: "Tamamlanan Mutfak Uygulaması",   filterKey: "Mutfak", categoryLabel: "Gerçek Proje · Mutfak" },
   { id: "b1",  type: "video", src: `${BASE}/banyo-tadilati.mp4`,          poster: `${POSTERS}/banyo-tadilati.jpg`,          title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
   { id: "b2",  type: "video", src: `${BASE}/banyo-tadilati-2.mp4`,        poster: `${POSTERS}/banyo-tadilati-2.jpg`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
   { id: "b3",  type: "image", src: `${BASE}/banyo-tadilati-6.jpeg`,                                                         title: "Banyo Detayı",        filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
@@ -49,6 +51,7 @@ const media: MediaItem[] = [
 const filters = [
   { key: "Tümü",   label: "Tümü" },
   { key: "Banyo",  label: "Banyo" },
+  { key: "Mutfak", label: "Mutfak" },
   { key: "Ev",     label: "Ev & İç Dizayn" },
   { key: "Balkon", label: "Balkon & Veranda" },
   { key: "Ticari", label: "Ticari Alan" },
@@ -116,7 +119,7 @@ export default function ProjelerClient() {
 
           {/* Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filtered.map((item) => (
+            {filtered.map((item, index) => (
               <div key={item.id} className="group overflow-hidden bg-white">
                 <div className="relative h-56 overflow-hidden bg-antrasit/10">
                   {item.type === "video" ? (
@@ -133,6 +136,7 @@ export default function ProjelerClient() {
                       src={item.src}
                       alt={item.title}
                       fill
+                      loading={index < 2 ? "eager" : "lazy"}
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />

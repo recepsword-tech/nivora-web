@@ -11,14 +11,14 @@ export const services = [
     title: "Banyo Yenileme",
     description:
       "Modern ve işlevsel banyolar tasarlıyor; kaliteli seramik, armatür ve ekipmanlarla uygulamayı gerçekleştiriyoruz.",
-    image: "/images/services/banyo-yenileme.png",
+    image: "/images/real-projects/banyo-tadilati-uygulama-asamasi.avif",
   },
   {
     id: "mutfak-tadilat",
     title: "Mutfak Yenileme",
     description:
       "Mutfak dolabı, tezgah, zemin ve duvar kaplaması dahil mutfağınızı estetik ve kullanışlı hale getiriyoruz.",
-    image: "/images/services/mutfak-yenileme.png",
+    image: "/images/real-projects/mutfak-tadilati-gercek-proje.avif",
   },
   {
     id: "boyama-kaplama",

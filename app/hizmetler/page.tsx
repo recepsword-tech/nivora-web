@@ -35,7 +35,7 @@ const hizmetler = [
     title: "Banyo Yenileme",
     description:
       "Modern ve işlevsel banyolar tasarlıyor; seramik, armatür ve aydınlatmayı eksiksiz uyguluyoruz.",
-    image: "/images/services/banyo-yenileme.png",
+    image: "/images/real-projects/banyo-tadilati-uygulama-asamasi.avif",
     icon: <ShowerIcon />,
     tags: ["Tesisat", "Seramik", "Armatür", "Aydınlatma"],
   },
@@ -45,7 +45,7 @@ const hizmetler = [
     title: "Mutfak Yenileme",
     description:
       "Dolap, tezgah, zemin ve tesisat dahil mutfağınızı estetik ve kullanışlı hale getiriyoruz.",
-    image: "/images/services/mutfak-yenileme.png",
+    image: "/images/real-projects/mutfak-tadilati-gercek-proje.avif",
     icon: <KitchenIcon />,
     tags: ["Dolaplar", "Tezgah", "Zemin", "Ankastre"],
   },
@@ -199,7 +199,7 @@ export default function HizmetlerPage() {
           {/* Top row: 3 cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             {hizmetler.slice(0, 3).map((h) => (
-              <ServiceCard key={h.id} {...h} />
+              <ServiceCard key={h.id} {...h} eager={h.id === "komple-tadilat"} />
             ))}
           </div>
           {/* Bottom row: 2 cards centred */}
@@ -383,9 +383,10 @@ interface ServiceCardProps {
   image: string;
   icon: React.ReactNode;
   tags: string[];
+  eager?: boolean;
 }
 
-function ServiceCard({ href, title, description, image, icon, tags }: ServiceCardProps) {
+function ServiceCard({ href, title, description, image, icon, tags, eager = false }: ServiceCardProps) {
   const inner = (
     <div className="group bg-white overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow duration-300">
       {/* Image */}
@@ -394,6 +395,7 @@ function ServiceCard({ href, title, description, image, icon, tags }: ServiceCar
           src={image}
           alt={title}
           fill
+          loading={eager ? "eager" : "lazy"}
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
