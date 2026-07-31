@@ -503,7 +503,7 @@ export default function MagazaTicariAlanPage() {
                 <Image src="/images/Nivora-referans-gorseller/kafe-ici-ince-detay-1.jpeg" alt="Kafe ince detay" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
               </div>
               <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/dukkan-ic-dizayn.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+                <video src="/images/Nivora-referans-gorseller/dukkan-ic-dizayn.mp4" poster="/images/video-posters/dukkan-ic-dizayn.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
               </div>
             </div>
 

@@ -434,16 +434,16 @@ export default function BanyoYenilemePage() {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3 mb-12">
               <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/banyo-tadilati.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+                <video src="/images/Nivora-referans-gorseller/banyo-tadilati.mp4" poster="/images/video-posters/banyo-tadilati.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
               </div>
               <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/banyo-tadilati-2.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+                <video src="/images/Nivora-referans-gorseller/banyo-tadilati-2.mp4" poster="/images/video-posters/banyo-tadilati-2.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
               </div>
               <div className="relative h-48 lg:h-56 overflow-hidden bg-antrasit/60">
                 <Image src="/images/Nivora-referans-gorseller/banyo-tadilati-6.jpeg" alt="Banyo tadilatı" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
               </div>
               <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/komple-banyo-tadilati.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+                <video src="/images/Nivora-referans-gorseller/komple-banyo-tadilati.mp4" poster="/images/video-posters/komple-banyo-tadilati.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
               </div>
             </div>
 

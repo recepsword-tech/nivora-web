@@ -493,13 +493,13 @@ export default function AnahtarTeslimPage() {
                 <Image src="/images/Nivora-referans-gorseller/ev-ic-dizayn-merdiven-3.jpeg" alt="Merdiven dizayn" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
               </div>
               <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/ev-ici-dizayn.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+                <video src="/images/Nivora-referans-gorseller/ev-ici-dizayn.mp4" poster="/images/video-posters/ev-ici-dizayn.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
               </div>
               <div className="relative h-48 lg:h-56 overflow-hidden bg-antrasit/60">
                 <Image src="/images/Nivora-referans-gorseller/somine.jpeg" alt="Şömine uygulaması" fill className="object-cover" sizes="(max-width: 1024px) 50vw, 25vw" />
               </div>
               <div className="h-48 lg:h-56 overflow-hidden bg-antrasit/60">
-                <video src="/images/Nivora-referans-gorseller/balkon-dizayn-4.mp4" controls playsInline preload="none" className="w-full h-full object-cover" />
+                <video src="/images/Nivora-referans-gorseller/balkon-dizayn-4.mp4" poster="/images/video-posters/balkon-dizayn-4.jpg" controls playsInline preload="metadata" className="w-full h-full object-cover" />
               </div>
             </div>
 

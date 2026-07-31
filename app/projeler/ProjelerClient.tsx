@@ -8,39 +8,42 @@ import { waUrl } from "@/data/contact";
 const WHATSAPP_URL = waUrl("photo");
 const BASE = "/images/Nivora-referans-gorseller";
 
+const POSTERS = "/images/video-posters";
+
 type MediaItem = {
   id: string;
   type: "video" | "image";
   src: string;
+  poster?: string;
   title: string;
   filterKey: string;
   categoryLabel: string;
 };
 
 const media: MediaItem[] = [
-  { id: "b1",  type: "video", src: `${BASE}/banyo-tadilati.mp4`,          title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b2",  type: "video", src: `${BASE}/banyo-tadilati-2.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b3",  type: "image", src: `${BASE}/banyo-tadilati-6.jpeg`,       title: "Banyo Detayı",        filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b4",  type: "video", src: `${BASE}/banyo-tadilati-7.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b5",  type: "video", src: `${BASE}/banyo-tadilati-8.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b6",  type: "video", src: `${BASE}/banyo-tadilati-9.mp4`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b7",  type: "video", src: `${BASE}/banyo-tadilati-11.mp4`,       title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b8",  type: "video", src: `${BASE}/banyo-tadilati-12.mp4`,       title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b9",  type: "video", src: `${BASE}/komple-banyo-tadilati.mp4`,   title: "Komple Banyo",        filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "b10", type: "video", src: `${BASE}/tuvalet-banyo-tadilati.mp4`,  title: "Tuvalet & Banyo",     filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
-  { id: "e1",  type: "image", src: `${BASE}/ev-ic-dizayn-merdiven-3.jpeg`,title: "Merdiven Dizayn",     filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
-  { id: "e2",  type: "video", src: `${BASE}/ev-ic-dizayn-merdiven-4.mp4`, title: "Merdiven Uygulaması", filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
-  { id: "e3",  type: "video", src: `${BASE}/ev-ic-dizayn-tas-doseme.mp4`, title: "Taş Döşeme",          filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
-  { id: "e4",  type: "video", src: `${BASE}/ev-ici-dizayn.mp4`,           title: "İç Mekan Dizayn",     filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
-  { id: "e5",  type: "image", src: `${BASE}/somine.jpeg`,                 title: "Şömine Uygulaması",   filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
-  { id: "v1",  type: "video", src: `${BASE}/balkon-dizayn-4.mp4`,         title: "Balkon Dizayn",       filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
-  { id: "v2",  type: "video", src: `${BASE}/balkon-tadilati-1.mp4`,       title: "Balkon Tadilat",      filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
-  { id: "v3",  type: "video", src: `${BASE}/veranda-tadilati.mp4`,        title: "Veranda Yenileme",    filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
-  { id: "t1",  type: "video", src: `${BASE}/dukkan-ic-dizayn.mp4`,        title: "Dükkan İç Dizayn",   filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
-  { id: "t2",  type: "video", src: `${BASE}/dukkan-tadilati.mp4`,         title: "Dükkan Tadilat",      filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
-  { id: "t3",  type: "image", src: `${BASE}/kafe-ici.jpeg`,               title: "Kafe İç Mekan",       filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
-  { id: "t4",  type: "image", src: `${BASE}/kafe-ici-3.jpeg`,             title: "Kafe Uygulama",       filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
-  { id: "t5",  type: "image", src: `${BASE}/kafe-ici-ince-detay-1.jpeg`,  title: "Kafe İnce Detay",     filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "b1",  type: "video", src: `${BASE}/banyo-tadilati.mp4`,          poster: `${POSTERS}/banyo-tadilati.jpg`,          title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b2",  type: "video", src: `${BASE}/banyo-tadilati-2.mp4`,        poster: `${POSTERS}/banyo-tadilati-2.jpg`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b3",  type: "image", src: `${BASE}/banyo-tadilati-6.jpeg`,                                                         title: "Banyo Detayı",        filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b4",  type: "video", src: `${BASE}/banyo-tadilati-7.mp4`,        poster: `${POSTERS}/banyo-tadilati-7.jpg`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b5",  type: "video", src: `${BASE}/banyo-tadilati-8.mp4`,        poster: `${POSTERS}/banyo-tadilati-8.jpg`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b6",  type: "video", src: `${BASE}/banyo-tadilati-9.mp4`,        poster: `${POSTERS}/banyo-tadilati-9.jpg`,        title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b7",  type: "video", src: `${BASE}/banyo-tadilati-11.mp4`,       poster: `${POSTERS}/banyo-tadilati-11.jpg`,       title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b8",  type: "video", src: `${BASE}/banyo-tadilati-12.mp4`,       poster: `${POSTERS}/banyo-tadilati-12.jpg`,       title: "Banyo Yenileme",      filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b9",  type: "video", src: `${BASE}/komple-banyo-tadilati.mp4`,   poster: `${POSTERS}/komple-banyo-tadilati.jpg`,   title: "Komple Banyo",        filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "b10", type: "video", src: `${BASE}/tuvalet-banyo-tadilati.mp4`,  poster: `${POSTERS}/tuvalet-banyo-tadilati.jpg`,  title: "Tuvalet & Banyo",     filterKey: "Banyo",   categoryLabel: "Banyo Yenileme" },
+  { id: "e1",  type: "image", src: `${BASE}/ev-ic-dizayn-merdiven-3.jpeg`,                                                  title: "Merdiven Dizayn",     filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e2",  type: "video", src: `${BASE}/ev-ic-dizayn-merdiven-4.mp4`, poster: `${POSTERS}/ev-ic-dizayn-merdiven-4.jpg`, title: "Merdiven Uygulaması", filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e3",  type: "video", src: `${BASE}/ev-ic-dizayn-tas-doseme.mp4`, poster: `${POSTERS}/ev-ic-dizayn-tas-doseme.jpg`, title: "Taş Döşeme",          filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e4",  type: "video", src: `${BASE}/ev-ici-dizayn.mp4`,           poster: `${POSTERS}/ev-ici-dizayn.jpg`,           title: "İç Mekan Dizayn",     filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "e5",  type: "image", src: `${BASE}/somine.jpeg`,                                                                   title: "Şömine Uygulaması",   filterKey: "Ev",      categoryLabel: "Ev & İç Dizayn" },
+  { id: "v1",  type: "video", src: `${BASE}/balkon-dizayn-4.mp4`,         poster: `${POSTERS}/balkon-dizayn-4.jpg`,         title: "Balkon Dizayn",       filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
+  { id: "v2",  type: "video", src: `${BASE}/balkon-tadilati-1.mp4`,       poster: `${POSTERS}/balkon-tadilati-1.jpg`,       title: "Balkon Tadilat",      filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
+  { id: "v3",  type: "video", src: `${BASE}/veranda-tadilati.mp4`,        poster: `${POSTERS}/veranda-tadilati.jpg`,        title: "Veranda Yenileme",    filterKey: "Balkon",  categoryLabel: "Balkon & Veranda" },
+  { id: "t1",  type: "video", src: `${BASE}/dukkan-ic-dizayn.mp4`,        poster: `${POSTERS}/dukkan-ic-dizayn.jpg`,        title: "Dükkan İç Dizayn",   filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t2",  type: "video", src: `${BASE}/dukkan-tadilati.mp4`,         poster: `${POSTERS}/dukkan-tadilati.jpg`,         title: "Dükkan Tadilat",      filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t3",  type: "image", src: `${BASE}/kafe-ici.jpeg`,                                                                 title: "Kafe İç Mekan",       filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t4",  type: "image", src: `${BASE}/kafe-ici-3.jpeg`,                                                               title: "Kafe Uygulama",       filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
+  { id: "t5",  type: "image", src: `${BASE}/kafe-ici-ince-detay-1.jpeg`,                                                    title: "Kafe İnce Detay",     filterKey: "Ticari",  categoryLabel: "Ticari Alan" },
 ];
 
 const filters = [
@@ -119,9 +122,10 @@ export default function ProjelerClient() {
                   {item.type === "video" ? (
                     <video
                       src={item.src}
+                      poster={item.poster}
                       controls
                       playsInline
-                      preload="none"
+                      preload="metadata"
                       className="w-full h-full object-cover"
                     />
                   ) : (

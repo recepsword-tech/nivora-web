@@ -204,7 +204,7 @@ export default function IletisimClient() {
                 <h2 className="font-heading text-2xl lg:text-3xl font-bold text-antrasit leading-tight mb-6">
                   Formu Doldurun,
                   <br />
-                  WhatsApp'tan Devam Edelim
+                  WhatsApp&apos;tan Devam Edelim
                 </h2>
                 <div className="w-10 h-px bg-gold mb-8" />
                 <p className="text-sm text-taupe font-sans leading-relaxed mb-8">
